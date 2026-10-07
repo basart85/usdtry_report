@@ -329,6 +329,100 @@ def split_report_body(body: str):
     return "\n".join(head), body[cut:]
 
 
+# ======================================================================= link-preview image
+PREVIEW = "preview.png"            # 1200x630, the size Open Graph / X / LinkedIn / WhatsApp expect
+
+
+def preview_image(P, m, path: Path, site_title: str):
+    """Share-card image: the event day's zero curves vs the previous day, with the change in bp.
+    Weeks without curve data get the week's returns against last year's band instead."""
+    import os
+    os.environ.setdefault("MPLBACKEND", "Agg")
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    ink, ink2, ink3, rule = "#14181f", "#4a5160", "#7a8191", "#e1e4ea"
+    main, prev_c, up, down, band = "#2a78d6", "#9aa3b2", "#d95926", "#256abf", "#e3edfa"
+    plt.rcParams.update({"font.family": "DejaVu Sans", "axes.edgecolor": rule, "axes.labelcolor": ink2,
+                         "xtick.color": ink2, "ytick.color": ink2, "axes.spines.top": False,
+                         "axes.spines.right": False})
+    fig = plt.figure(figsize=(12, 6.3), dpi=100, facecolor="#f6f7f9")
+    we = date.fromisoformat(m["week_end"])
+    fig.text(0.045, 0.925, f"{site_title.upper()}  ·  USD/TRY & US TREASURY ZERO CURVE",
+             fontsize=11, color=ink3, weight="bold")
+    c = (P.get("curves") or [None])[0]
+
+    if c:
+        fig.text(0.045, 0.835, f"Zero curve {fmt_day(c['prev'])} → {fmt_day(c['day'], year=True)}",
+                 fontsize=27, color=ink, weight="bold")
+        tail = "tail day" if m["n_tail"] else "near-miss, most extreme day"
+        fig.text(0.045, 0.775, f"USD/TRY {pc(m['ext_ret'])} on {fmt_day(m['ext_date'])} "
+                 f"({ordinal(m['ext_rank'])} percentile, {tail})  ·  week to {we.day} {we.strftime('%b %Y')}",
+                 fontsize=13.5, color=ink2)
+        a1 = fig.add_axes([0.06, 0.12, 0.52, 0.58], facecolor="#ffffff")
+        for key, col, lbl, lw in (("curve_prev", prev_c, c["prev"], 2.6), ("curve_day", main, c["day"], 3.2)):
+            t, v = zip(*c[key])
+            a1.plot(t, v, color=col, lw=lw, label=lbl, solid_capstyle="round")
+        a1.plot(c["std_t"], c["std_day"], "o", color=main, ms=5)
+        a1.set_xscale("log")
+        a1.set_xticks(c["std_t"], c["tenors"], fontsize=10)
+        a1.minorticks_off()
+        a1.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.2f}%"))
+        a1.tick_params(axis="y", labelsize=10)
+        a1.grid(alpha=0.35, color=rule)
+        a1.legend(frameon=False, fontsize=11, loc="lower right")
+
+        a2 = fig.add_axes([0.65, 0.12, 0.31, 0.58], facecolor="#ffffff")
+        y = np.arange(len(c["tenors"]))
+        vals = np.array(c["chg_bp"])
+        a2.barh(y, vals, color=[up if v >= 0 else down for v in vals], height=0.62)
+        a2.axvline(0, color=ink3, lw=1)
+        a2.set_yticks(y, c["tenors"], fontsize=10)
+        a2.invert_yaxis()
+        lim = max(1.0, np.abs(vals).max()) * 1.45
+        a2.set_xlim(-lim, lim)
+        for yi, v in zip(y, vals):
+            a2.text(v + (0.04 * lim if v >= 0 else -0.04 * lim), yi, f"{v:+.1f}", va="center",
+                    ha="left" if v >= 0 else "right", fontsize=9.5, color=ink)
+        a2.set_title("Daily change, bp", fontsize=12, color=ink2, loc="left")
+        a2.tick_params(axis="x", labelsize=9)
+        a2.grid(axis="x", alpha=0.35, color=rule)
+    else:                                               # no curve: show the week vs the band
+        fig.text(0.045, 0.835, f"USD/TRY week to {we.day} {we.strftime('%b %Y')}",
+                 fontsize=27, color=ink, weight="bold")
+        fig.text(0.045, 0.775, m["verdict"][:120], fontsize=13.5, color=ink2)
+        a = fig.add_axes([0.06, 0.12, 0.9, 0.58], facecolor="#ffffff")
+        rows = m["rows"]
+        x = np.arange(len(rows))
+        a.axhspan(m["lo"], m["hi"], color=band)
+        a.bar(x, [r["ret"] for r in rows], color=[up if r["flag"] else main for r in rows], width=0.5)
+        a.set_xticks(x, [fmt_day(r["date"]) for r in rows], fontsize=11)
+        a.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.2f}%"))
+        a.grid(axis="y", alpha=0.35, color=rule)
+    fig.savefig(path, dpi=100, facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+
+def share_tags(title, desc, page_url, image_rel, image_alt, base_url):
+    """Open Graph + X/Twitter card tags. Platforms need absolute image URLs, hence --base-url."""
+    img = (base_url + image_rel) if base_url else image_rel
+    tags = [f'<meta property="og:type" content="article">',
+            f'<meta property="og:title" content="{E(title)}">',
+            f'<meta property="og:description" content="{desc}">',
+            f'<meta property="og:image" content="{E(img)}">',
+            '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
+            f'<meta property="og:image:alt" content="{E(image_alt)}">',
+            '<meta name="twitter:card" content="summary_large_image">',
+            f'<meta name="twitter:title" content="{E(title)}">',
+            f'<meta name="twitter:description" content="{desc}">',
+            f'<meta name="twitter:image" content="{E(img)}">']
+    if base_url:
+        tags.insert(1, f'<meta property="og:url" content="{E(base_url + page_url)}">')
+    return "\n".join(tags)
+
+
 def report_page(rep, prev_rep, next_rep, files, site_title, base_url):
     m = rep["meta"]
     body = (rep["folder"] / "report_body.html").read_text(encoding="utf-8")
@@ -337,6 +431,11 @@ def report_page(rep, prev_rep, next_rep, files, site_title, base_url):
     title = f"USD/TRY week to {we.day} {we.strftime('%b %Y')} · {site_title}"
     canon = f'<link rel="canonical" href="{E(base_url)}reports/{m["slug"]}/">' if base_url else ""
     desc = E(m["verdict"])
+    alt = (f"US Treasury zero curves {m['curve_prev']} vs {m['curve_day']} with daily change in basis points"
+           if m["curve_day"] else f"USD/TRY daily returns for the week to {m['week_end']}")
+    has_preview = bool(files) and (files[0].parent / PREVIEW).exists()
+    share = (share_tags(title, desc, f"reports/{m['slug']}/", f"reports/{m['slug']}/{PREVIEW}", alt, base_url)
+             if has_preview else f'<meta property="og:title" content="{E(title)}">')
 
     def pn(r, label, arrow_first):
         if not r:
@@ -363,7 +462,7 @@ def report_page(rep, prev_rep, next_rep, files, site_title, base_url):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{E(title)}</title>
 <meta name="description" content="{desc}">
-<meta property="og:title" content="{E(title)}"><meta property="og:description" content="{desc}">
+{share}
 {canon}
 {head_extra}
 <style>{NAV_CSS}</style>
@@ -378,6 +477,9 @@ def report_page(rep, prev_rep, next_rep, files, site_title, base_url):
 def index_page(reports, site_title, base_url, built):
     metas = [r["meta"] for r in reports]
     canon = f'<link rel="canonical" href="{E(base_url)}">' if base_url else ""
+    home_share = (share_tags(site_title, "Weekly USD/TRY tail-day reports with US Treasury zero curves and US/Turkey headlines.",
+                             "", f"reports/{metas[0]['slug']}/{PREVIEW}", "Latest report: US Treasury zero curves", base_url)
+                  if metas else f'<meta property="og:title" content="{E(site_title)}">')
     years = sorted({m["year"] for m in metas}, reverse=True)
     n_tail_weeks = sum(1 for m in metas if m["n_tail"])
 
@@ -443,7 +545,7 @@ def index_page(reports, site_title, base_url, built):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{E(site_title)}</title>
 <meta name="description" content="Weekly USD/TRY tail-day reports with US Treasury zero curves and US/Turkey headlines.">
-<meta property="og:title" content="{E(site_title)}">
+{home_share}
 {canon}
 {FONTS}
 <style>{INDEX_CSS}</style>
@@ -569,6 +671,10 @@ def build(src: Path, out: Path, pattern: str, site_title: str, base_url: str):
             if f.suffix in COPY_EXT and f.name not in SKIP_FILES:
                 shutil.copy2(f, d / f.name)
                 files.append(d / f.name)
+        try:
+            preview_image(rep["P"], rep["meta"], d / PREVIEW, site_title)
+        except Exception as ex:                       # a missing preview must never break the build
+            print(f"  preview image failed for {rep['meta']['slug']}: {type(ex).__name__}: {ex}")
         newer = reports[i - 1] if i > 0 else None
         older = reports[i + 1] if i + 1 < len(reports) else None
         (d / "index.html").write_text(report_page(rep, newer, older, files, site_title, base_url), encoding="utf-8")
