@@ -1,0 +1,56 @@
+{
+ "title": "Currency & Yield Reports",
+ "built": "2026-10-07 04:10",
+ "reports": [
+  {
+   "slug": "2026-10-06",
+   "week_start": "2026-09-30",
+   "week_end": "2026-10-06",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 0,
+   "tail_dates": [],
+   "ext_date": "2026-10-02",
+   "ext_ret": 0.22611769786720082,
+   "ext_rank": 91.26984126984127,
+   "ext_flag": "",
+   "week_cum": 0.36464050018025773,
+   "px_start": 49.018,
+   "px_end": 49.179,
+   "lo": -0.03778307892126964,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": true,
+   "curve_day": "2026-10-02",
+   "curve_prev": "2026-10-01",
+   "chg_2y": 4.98,
+   "chg_10y": 3.73,
+   "chg_30y": 0.41,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Turkey's $18 billion funds scandal poses meaningful risks to economy, JPMorgan warns",
+     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPaXFpTEd1LU1oVWh2WFRsbThOU1IyZXExSWJJd3ZnVmh6OHdtZUhDMTlkcVZveHdTeERucnI0d2haNDBMTnRrSTB0WmdlYzZaRjZSMkRLczJFTkhKVDBKWmRQQlQyaHF5OEdORzkzT1FpTWZBSExpQXpRcy1acUZ3TjExdEg0RzZncGhlTllXa3piR0pOVG8xNXF5Uklfd1lwdWRfNG5xcUlWaVRGQ2ZTRUhMR0hBZzV0bUE1eVRWMWMwc0Z1dml6WGV2Rk1lRzJ2?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-02"
+    },
+    {
+     "title": "Turkey’s main opposition urges Erdoğan to resign or call election over fund crisis",
+     "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQMjljT3Y0RkthQnlheVRhbVBhbmh1Y0ZIOWJZSndRZGVQeHJ0T1A1bDc1OV9LejU0c3dyX0ZXNFVmXzkwZWdEUVlWUWxPMFkzNU9aM0laeDRnUGY3bm45REFoYm9iNjJWUG1rV0twWUU1V1o5NFdfYzM3WGYyeV9jOURvNldVenBDTDZvRHZKQUpYM1k3dXVWYUVmdVY2cmprOFJvVmRidUtHMVpUT0RJa2hXbS0yT2VGOE83bV84bUrSAcYBQVVfeXFMUE0wOHhyYVQ3MGt4LXE1d2pmSThfX1RPeEhZaWp5M01UWVBqR2RhWE5ocC1oNllPNU9YQkFRU0Jmbmg2Q0R1YUhUMkxuSmRsM2FjTldKNVc3X3hNVEZqMDhfZ3dCX0F2NTBGeEtyck5NQ2plRUVUQWNURERsVVg1eldNSnNmcEdHU3dhb0hDUTFaU052Z09vZUZGWWNOSjk3MFFIT2d1TjNGT3NqUlVJdm1hTkpTNjRHcklWcjdZZVRPZTkyMnJR?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-01"
+    },
+    {
+     "title": "Explainer: How Turkey's investment fund bubble burst",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNZ0l1bkJFbVQwY0lWdXRvbmM1aUxFQUZVLWQwd1RPM1JINHhNLTZqLWY0cEFMb3RKVnFFbmQ2ZERnX0tuam9KdG90aW5RaGtsV0ZXOUd1WkdVNjUteXVTSHYxUTkwSWdZdnI3RXRmTEVMWEpyTXB0NF9GSnQ5UTNOU1V4ZWtLaUdTVFJQT1F5NG84cWdRVFZveXh3?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-02"
+    }
+   ],
+   "direction": "up",
+   "verdict": "No tail days. The largest move was Fri 2 Oct at +0.226%, the 91st percentile, against a 95th percentile of +0.237%.",
+   "generated": "2026-10-07 03:58",
+   "url": "reports/2026-10-06/index.html"
+  }
+ ]
+}

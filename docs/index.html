@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Currency &amp; Yield Reports</title>
+<meta name="description" content="Weekly USD/TRY tail-day reports with US Treasury zero curves and US/Turkey headlines.">
+<meta property="og:title" content="Currency &amp; Yield Reports">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #14181f; --ink-2: #4a5160; --ink-3: #7a8191;
+  --rule: #e1e4ea; --grid: #eceef2; --band: rgba(42,120,214,.10); --s-main: #2a78d6; --up: #d95926; --down: #256abf;
+  --pill-bg: #fdeee7; --pill-ink: #a8401a; --pill2-bg: #eef1f5; --pill2-ink: #4a5160;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c; --rule: #2a3039; --grid: #232830;
+  --band: rgba(57,135,229,.16); --s-main: #4f95ea; --up: #ef7a46; --down: #5598e7;
+  --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c; --rule: #2a3039; --grid: #232830;
+  --band: rgba(57,135,229,.16); --s-main: #4f95ea; --up: #ef7a46; --down: #5598e7;
+  --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8; color-scheme: dark; }
+
+.mini { display: block; overflow: visible; }
+.mc-band { fill: var(--band); }
+.mc-zero { stroke: var(--ink-3); stroke-width: .6; stroke-dasharray: 2 2; }
+.mc-bar { fill: var(--s-main); }
+.mc-bar.tail { fill: var(--up); }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 64px; display: grid; gap: 44px; }
+header.top { display: grid; gap: 10px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(32px, 6vw, 48px); line-height: 1.05; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 22px; margin: 0; }
+.lede { color: var(--ink-2); max-width: 66ch; margin: 0; }
+.latest { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 22px; display: grid; gap: 18px; }
+.latest-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; }
+.latest-head .when { font-family: var(--f-display); font-size: 26px; font-weight: 600; line-height: 1.15; }
+.latest-body { display: grid; gap: 18px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .latest-body { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; } }
+.verdict { margin: 0; font-size: 16px; max-width: 60ch; }
+.kv { display: flex; flex-wrap: wrap; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.kv div { flex: 1 1 130px; background: var(--panel); padding: 10px 12px; display: grid; gap: 1px; min-width: 0; }
+.kv .k { font-size: 12px; color: var(--ink-3); }
+.kv .v { font-family: var(--f-mono); font-size: 17px; font-variant-numeric: tabular-nums; }
+.heads { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.heads li { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: baseline; font-size: 14px; }
+.heads a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+.heads a:hover, .heads a:focus-visible { border-bottom-color: var(--s-main); outline: none; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; background: var(--s-main); color: #fff;
+       text-decoration: none; font-weight: 500; font-size: 14px; }
+.btn:hover, .btn:focus-visible { filter: brightness(1.08); outline: 2px solid var(--s-main); outline-offset: 2px; }
+.tag { font-size: 11px; font-weight: 500; padding: 0 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-2); white-space: nowrap; }
+.tag.us { border-color: var(--s-main); color: var(--s-main); }
+.tag.tr { border-color: var(--up); color: var(--up); }
+.pill { display: inline-block; font-size: 12px; font-weight: 500; padding: 1px 8px; border-radius: 999px; background: var(--pill2-bg); color: var(--pill2-ink); white-space: nowrap; }
+.pill.hot { background: var(--pill-bg); color: var(--pill-ink); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.controls input[type=search], .controls select { font: inherit; font-size: 14px; padding: 7px 10px; border-radius: 8px;
+  border: 1px solid var(--rule); background: var(--panel); color: var(--ink); min-width: 0; }
+.controls input[type=search] { flex: 1 1 220px; }
+.controls label { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--ink-2); }
+.count { font-size: 13px; color: var(--ink-3); margin-left: auto; }
+.archive { list-style: none; margin: 0; padding: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; }
+.archive li { border-bottom: 1px solid var(--rule); }
+.archive li:last-child { border-bottom: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; padding: 14px 18px; text-decoration: none; color: inherit; }
+.row > .cell:first-child { grid-column: 1 / -1; }
+.row > .arrow { display: none; }
+.row:hover, .row:focus-visible { background: color-mix(in srgb, var(--s-main) 5%, var(--panel)); outline: none; }
+@media (min-width: 820px) {
+  .row { grid-template-columns: 190px 150px 130px 150px minmax(0, 1fr) 16px; align-items: center; gap: 16px; }
+  .row > .cell:first-child { grid-column: auto; }
+  .row > .arrow { display: block; }
+  .archive-head { display: grid !important; }
+}
+.archive-head { display: none; grid-template-columns: 190px 150px 130px 150px minmax(0, 1fr) 16px; gap: 16px;
+  padding: 10px 18px; font-size: 12px; color: var(--ink-3); border-bottom: 1px solid var(--rule); }
+.row .week { font-weight: 600; }
+.row .sub { font-size: 12px; color: var(--ink-3); }
+.row .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 14px; }
+.row .cell { display: grid; gap: 2px; min-width: 0; }
+.row .cell > .pill, .row .cell > .mini { justify-self: start; }
+.row .lbl { font-size: 11px; color: var(--ink-3); }
+@media (min-width: 820px) { .row .lbl { display: none; } }
+.row .arrow { color: var(--ink-3); }
+.up { color: var(--up); } .down { color: var(--down); }
+.empty { padding: 28px 18px; color: var(--ink-2); }
+footer { font-size: 13px; color: var(--ink-3); display: grid; gap: 4px; max-width: 80ch; }
+footer p { margin: 0; }
+</style>
+</head><body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Weekly · USD/TRY · US Treasury zero curve</div>
+    <h1>Currency &amp; Yield Reports</h1>
+    <p class="lede">Each report ranks a week of USD/TRY daily returns against the year before it, flags days in the tails,
+    compares the US Treasury zero curve on the most extreme day with the day before, and lists the US and Turkey headlines around it.</p>
+  </header>
+
+  <section class="latest" aria-labelledby="latest-h">
+    <div class="latest-head">
+      <div><div class="eyebrow" id="latest-h">Latest report</div><div class="when">30 Sep – 6 Oct 2026</div></div>
+      <a class="btn" href="reports/2026-10-06/index.html">Read the report →</a>
+    </div>
+    <div class="latest-body">
+      <div style="display:grid;gap:14px;min-width:0">
+        <p class="verdict">No tail days. The largest move was Fri 2 Oct at +0.226%, the 91st percentile, against a 95th percentile of +0.237%.</p>
+        <svg class="mini" viewBox="0 0 300 84" width="300" height="84" role="img" aria-label="Daily returns: Wed 30 Sep +0.037%, Thu 1 Oct +0.033%, Fri 2 Oct +0.226%, Mon 5 Oct +0.024%, Tue 6 Oct +0.045%"><title>Daily returns: Wed 30 Sep +0.037%, Thu 1 Oct +0.033%, Fri 2 Oct +0.226%, Mon 5 Oct +0.024%, Tue 6 Oct +0.045%</title><rect class="mc-band" x="0" y="5.8" width="300" height="72.4" rx="2"/><line class="mc-zero" x1="0" x2="300" y1="68.2" y2="68.2"/><rect class="mc-bar" x="13.2" y="58.6" width="33.6" height="9.7" rx="1.5"/><rect class="mc-bar" x="73.2" y="59.6" width="33.6" height="8.6" rx="1.5"/><rect class="mc-bar" x="133.2" y="8.7" width="33.6" height="59.6" rx="1.5"/><rect class="mc-bar" x="193.2" y="61.8" width="33.6" height="6.4" rx="1.5"/><rect class="mc-bar" x="253.2" y="56.5" width="33.6" height="11.8" rx="1.5"/></svg>
+        <div class="kv">
+          <div><span class="k">Week's move</span><span class="v">+0.36%</span></div>
+          <div><span class="k">USD/TRY</span><span class="v">49.179</span></div>
+          <div><span class="k">Tail days</span><span class="v">0 / 5</span></div>
+          <div><span class="k">2Y / 10Y zero, bp on Fri 2 Oct</span><span class="v">+5.0 / +3.7</span></div>
+        </div>
+      </div>
+      <div style="display:grid;gap:10px;min-width:0">
+        <div class="eyebrow">Most relevant headlines around Fri 2 Oct · up day</div>
+        <ul class='heads'><li><span class="tag tr">Turkey</span><a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxPaXFpTEd1LU1oVWh2WFRsbThOU1IyZXExSWJJd3ZnVmh6OHdtZUhDMTlkcVZveHdTeERucnI0d2haNDBMTnRrSTB0WmdlYzZaRjZSMkRLczJFTkhKVDBKWmRQQlQyaHF5OEdORzkzT1FpTWZBSExpQXpRcy1acUZ3TjExdEg0RzZncGhlTllXa3piR0pOVG8xNXF5Uklfd1lwdWRfNG5xcUlWaVRGQ2ZTRUhMR0hBZzV0bUE1eVRWMWMwc0Z1dml6WGV2Rk1lRzJ2?oc=5" target="_blank" rel="noopener">Turkey&#x27;s $18 billion funds scandal poses meaningful risks to economy, JPMorgan warns</a></li><li><span class="tag tr">Turkey</span><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxQMjljT3Y0RkthQnlheVRhbVBhbmh1Y0ZIOWJZSndRZGVQeHJ0T1A1bDc1OV9LejU0c3dyX0ZXNFVmXzkwZWdEUVlWUWxPMFkzNU9aM0laeDRnUGY3bm45REFoYm9iNjJWUG1rV0twWUU1V1o5NFdfYzM3WGYyeV9jOURvNldVenBDTDZvRHZKQUpYM1k3dXVWYUVmdVY2cmprOFJvVmRidUtHMVpUT0RJa2hXbS0yT2VGOE83bV84bUrSAcYBQVVfeXFMUE0wOHhyYVQ3MGt4LXE1d2pmSThfX1RPeEhZaWp5M01UWVBqR2RhWE5ocC1oNllPNU9YQkFRU0Jmbmg2Q0R1YUhUMkxuSmRsM2FjTldKNVc3X3hNVEZqMDhfZ3dCX0F2NTBGeEtyck5NQ2plRUVUQWNURERsVVg1eldNSnNmcEdHU3dhb0hDUTFaU052Z09vZUZGWWNOSjk3MFFIT2d1TjNGT3NqUlVJdm1hTkpTNjRHcklWcjdZZVRPZTkyMnJR?oc=5" target="_blank" rel="noopener">Turkey’s main opposition urges Erdoğan to resign or call election over fund crisis</a></li><li><span class="tag tr">Turkey</span><a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxNZ0l1bkJFbVQwY0lWdXRvbmM1aUxFQUZVLWQwd1RPM1JINHhNLTZqLWY0cEFMb3RKVnFFbmQ2ZERnX0tuam9KdG90aW5RaGtsV0ZXOUd1WkdVNjUteXVTSHYxUTkwSWdZdnI3RXRmTEVMWEpyTXB0NF9GSnQ5UTNOU1V4ZWtLaUdTVFJQT1F5NG84cWdRVFZveXh3?oc=5" target="_blank" rel="noopener">Explainer: How Turkey&#x27;s investment fund bubble burst</a></li></ul>
+      </div>
+    </div>
+  </section>
+  <section id="archive" aria-labelledby="arch-h" style="display:grid;gap:14px">
+    <h2 id="arch-h">All reports</h2>
+    <div class="controls">
+      <input type="search" id="q" placeholder="Search dates or headlines" aria-label="Search reports">
+      <select id="yr" aria-label="Year"><option value="">All years</option><option value="2026">2026</option></select>
+      <label><input type="checkbox" id="tailOnly"> Tail weeks only</label>
+      <span class="count" id="count">1 reports · 0 with tail days</span>
+    </div>
+    <ul class="archive" id="list">
+      <li class="archive-head" aria-hidden="true"><span>Week</span><span>Daily returns vs band</span><span>Tail days</span><span>Largest move</span><span>2Y / 10Y zero Δ bp, event day</span><span></span></li>
+<li data-year="2026" data-tail="0" data-search="2026-09-30 2026-10-06 30 sep – 6 oct 2026 no tail days. the largest move was fri 2 oct at +0.226%, the 91st percentile, against a 95th percentile of +0.237%. turkey&#x27;s $18 billion funds scandal poses meaningful risks to economy, jpmorgan warns turkey’s main opposition urges erdoğan to resign or call election over fund crisis explainer: how turkey&#x27;s investment fund bubble burst president erdoğan vows strong economy, no losses for public in fund probe convert 1 usdy (ondo u.s. dollar yield) to try (turkish lira) ruling party co-founder warns turkey’s fund scandal could cost erdoğan elections gold steady as softer us inflation data tempers fed rate - hike bets turkish lira exchange rates today (try) | live currency table trump praises turkish president erdogan when pressed on delay in lifting sanctions on ankara [opinion] turkey’s fund scandal has no painless exit for erdoğan dollar falls as soft job data roils timing of fed rate-hike bets turkey’s main opposition walks out in protest as erdoğan opens parliament us jobs report faces a higher bar as bond market tensions raise the stakes us job growth slows, easing pressure on fed to hike rates before midterms fund probe not weighing on türkiye credit rating, s&amp;p global says treasury yields sink after weak september jobs report dims october fed hike odds week ahead for fx, bonds: fed minutes in focus as near-term rate-hike prospects dim traders now see little chance of a fed rate hike in october after weak jobs report institutions proclaim that the september non-farm payrolls report has “killed” expectations for an october rate hike! “new fed communications”: the employment report has not altered the fed’s stance; the september cpi data is more critical. us jobs report: september payrolls rise just 29,000, unemployment rate hits 4.2%">
+  <a class="row" href="reports/2026-10-06/index.html">
+    <span class="cell"><span class="week">30 Sep – 6 Oct 2026</span>
+      <span class="sub">USD/TRY 49.018 → 49.179 (+0.36%)</span></span>
+    <span class="cell"><span class="lbl">Daily returns vs band</span><svg class="mini" viewBox="0 0 132 40" width="132" height="40" role="img" aria-label="Daily returns: Wed 30 Sep +0.037%, Thu 1 Oct +0.033%, Fri 2 Oct +0.226%, Mon 5 Oct +0.024%, Tue 6 Oct +0.045%"><title>Daily returns: Wed 30 Sep +0.037%, Thu 1 Oct +0.033%, Fri 2 Oct +0.226%, Mon 5 Oct +0.024%, Tue 6 Oct +0.045%</title><rect class="mc-band" x="0" y="2.8" width="132" height="34.5" rx="2"/><line class="mc-zero" x1="0" x2="132" y1="32.5" y2="32.5"/><rect class="mc-bar" x="5.8" y="27.9" width="14.8" height="4.6" rx="1.5"/><rect class="mc-bar" x="32.2" y="28.4" width="14.8" height="4.1" rx="1.5"/><rect class="mc-bar" x="58.6" y="4.1" width="14.8" height="28.4" rx="1.5"/><rect class="mc-bar" x="85.0" y="29.4" width="14.8" height="3.1" rx="1.5"/><rect class="mc-bar" x="111.4" y="26.9" width="14.8" height="5.6" rx="1.5"/></svg></span>
+    <span class="cell"><span class="lbl">Tail days</span><span class="pill">None</span></span>
+    <span class="cell"><span class="lbl">Largest move</span><span class="num up">+0.226%</span>
+      <span class="sub">Fri 2 Oct · 91st pct</span></span>
+    <span class="cell"><span class="lbl">2Y / 10Y zero change, bp</span><span class="num"><span class="up">+5.0</span> / <span class="up">+3.7</span></span><span class="sub">Fri 2 Oct · near-miss</span>
+      <span class="sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Turkey&#x27;s $18 billion funds scandal poses meaningful risks to economy, JPMorgan warns</span></span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a></li>
+    </ul>
+    <p class="empty" id="none" hidden>No reports match these filters.</p>
+  </section>
+  <footer>
+    <p>Bars show each day's USD/TRY log return; the shaded band is last year's 5th–95th percentile range; orange bars are tail days.
+    "Near-miss" means no day was in the tails and the week's most extreme day was used for the curve.</p>
+    <p>Data: ECB reference rates (Frankfurter) or Yahoo Finance for USD/TRY; U.S. Treasury par curve or Federal Reserve GSW curve for rates; GDELT, Google News and Yahoo for headlines. Built 2026-10-07 04:10. <a href="reports.json">reports.json</a></p>
+  </footer>
+</div>
+<script>
+(() => {
+  const q = document.getElementById("q"), yr = document.getElementById("yr"), tail = document.getElementById("tailOnly");
+  const items = [...document.querySelectorAll("#list li[data-year]")], none = document.getElementById("none"), count = document.getElementById("count");
+  const total = items.length;
+  function apply() {
+    const s = q.value.trim().toLowerCase(); let n = 0;
+    items.forEach(li => {
+      const ok = (!s || li.dataset.search.includes(s)) && (!yr.value || li.dataset.year === yr.value) && (!tail.checked || li.dataset.tail === "1");
+      li.hidden = !ok; if (ok) n++;
+    });
+    none.hidden = n > 0 || total === 0;
+    count.textContent = n === total ? count.dataset.all : n + " of " + total + " reports";
+  }
+  count.dataset.all = count.textContent;
+  [q, yr, tail].forEach(el => el.addEventListener("input", apply));
+})();
+</script>
+</body></html>
