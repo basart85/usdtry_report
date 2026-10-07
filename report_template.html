@@ -1,0 +1,398 @@
+<title>USD/TRY Tail Days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, a summary strip, then three numbered-by-question sections (returns → tails → rates) */
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --ink: #14181f;
+  --ink-2: #4a5160;
+  --ink-3: #7a8191;
+  --rule: #e1e4ea;
+  --grid: #eceef2;
+  --band: rgba(42, 120, 214, 0.08);
+  --s-main: #2a78d6;      /* series 1: event day / last week */
+  --s-prev: #9aa3b2;      /* comparison day, recessive */
+  --s-hist: #c3d6ee;      /* history histogram */
+  --up: #d95926;          /* tail high / rates up */
+  --down: #256abf;        /* tail low / rates down */
+  --pill-bg: #fdeee7;
+  --pill-ink: #a8401a;
+  --pill2-bg: #eef1f5;
+  --pill2-ink: #4a5160;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c;
+    --rule: #2a3039; --grid: #232830; --band: rgba(57, 135, 229, 0.12);
+    --s-main: #4f95ea; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
+    --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c;
+  --rule: #2a3039; --grid: #232830; --band: rgba(57, 135, 229, 0.12);
+  --s-main: #4f95ea; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
+  --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; margin: 0; }
+.wrap { max-width: 960px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 56px; display: grid; gap: 40px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 22px; margin: 0; text-wrap: balance; }
+.lede { color: var(--ink-2); max-width: 68ch; margin: 0; }
+.verdict { font-size: 17px; max-width: 68ch; margin: 0; }
+.verdict b { font-weight: 600; }
+.stats { display: flex; flex-wrap: wrap; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.stat { background: var(--panel); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; flex: 1 1 150px; }
+.stat .k { font-size: 12px; color: var(--ink-3); letter-spacing: .02em; }
+.stat .v { font-family: var(--f-mono); font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat .s { font-size: 12px; color: var(--ink-2); }
+section { display: grid; gap: 14px; min-width: 0; }
+.sub { color: var(--ink-2); margin: 0; max-width: 72ch; font-size: 14px; }
+.chart { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 14px 8px; position: relative; height: 320px; min-width: 0; }
+.chart.short { height: 240px; }
+.grid2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw.line { height: 3px; border-radius: 2px; }
+.sw.dash { height: 0; border-top: 2px dashed var(--ink-3); border-radius: 0; }
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 9px 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--rule); }
+th { font-weight: 500; font-size: 12px; color: var(--ink-3); letter-spacing: .02em; background: var(--panel); }
+th:first-child, td:first-child { text-align: left; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; font-size: 12px; font-weight: 500; padding: 1px 8px; border-radius: 999px; background: var(--pill2-bg); color: var(--pill2-ink); }
+.pill.hot { background: var(--pill-bg); color: var(--pill-ink); }
+.note { border-left: 3px solid var(--up); padding: 8px 14px; background: var(--panel); border-radius: 0 6px 6px 0; font-size: 14px; color: var(--ink-2); max-width: 80ch; }
+.notes { font-size: 13px; color: var(--ink-2); display: grid; gap: 6px; max-width: 80ch; }
+.notes p { margin: 0; }
+#method { display: grid; gap: 8px; }
+.mono { font-family: var(--f-mono); }
+.news { display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--panel); }
+.news li { list-style: none; display: grid; grid-template-columns: 92px 1fr; gap: 4px 14px; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.news li:last-child { border-bottom: 0; }
+.news ol { margin: 0; padding: 0; }
+.news .d { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); padding-top: 3px; }
+.news .body { display: grid; gap: 3px; min-width: 0; }
+.news a { color: var(--ink); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.news a:hover, .news a:focus-visible { border-bottom-color: var(--s-main); color: var(--s-main); outline: none; }
+.news .why { font-size: 13px; color: var(--ink-2); }
+.news .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; color: var(--ink-3); }
+.tag { font-size: 11px; font-weight: 500; padding: 0 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-2); }
+.tag.us { border-color: var(--s-main); color: var(--s-main); }
+.tag.tr { border-color: var(--up); color: var(--up); }
+@media (max-width: 520px) { .news li { grid-template-columns: 1fr; } }
+.rel { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; color: var(--ink-2); }
+.rel .bar { width: 64px; height: 6px; border-radius: 3px; background: var(--grid); overflow: hidden; display: inline-block; }
+.rel .bar i { display: block; height: 100%; background: var(--s-main); border-radius: 3px; }
+.rel .rk { font-weight: 500; color: var(--ink); }
+.terms { font-size: 12px; color: var(--ink-3); }
+details.more { display: grid; gap: 10px; }
+details.more > summary { cursor: pointer; font-size: 14px; color: var(--ink-2); padding: 6px 0; }
+details.more > summary:focus-visible { outline: 2px solid var(--s-main); outline-offset: 2px; border-radius: 4px; }
+details.more .news { margin-top: 10px; opacity: .92; }
+.promptq { font-size: 13px; color: var(--ink-2); border-left: 3px solid var(--s-main); padding: 6px 12px; background: var(--panel); border-radius: 0 6px 6px 0; max-width: 80ch; }
+@media (min-width: 760px) { .grid2 { grid-template-columns: 3fr 2fr; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1>USD/TRY tail days and the US zero curve</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <p class="verdict" id="verdict"></p>
+  <div class="stats" id="stats"></div>
+
+  <section>
+    <h2>Last week's daily returns</h2>
+    <p class="sub" id="weekSub"></p>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s-main)"></i>Daily log return</span>
+      <span><i class="sw" style="background:var(--up)"></i>Outside the band (tail day)</span>
+      <span><i class="sw" style="background:var(--band);outline:1px solid var(--rule)"></i>5th–95th percentile band of last year</span>
+    </div>
+    <div class="chart short"><canvas id="weekChart" aria-label="Last week daily returns versus last year's percentile band"></canvas></div>
+  </section>
+
+  <section>
+    <h2>How the week compares with the last year</h2>
+    <p class="sub" id="histSub"></p>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s-hist)"></i>Daily returns, last year (count)</span>
+      <span><i class="sw dash"></i>5th / 95th percentile</span>
+      <span><i class="sw" style="background:var(--s-main);border-radius:50%"></i>Last week's days</span>
+    </div>
+    <div class="chart short"><canvas id="histChart" aria-label="Histogram of last year's daily returns with last week's days marked"></canvas></div>
+    <div class="tbl"><table id="weekTable"></table></div>
+  </section>
+
+  <section>
+    <h2>Days of excess returns</h2>
+    <div id="excessNote"></div>
+    <div class="tbl"><table id="excessTable"></table></div>
+  </section>
+
+  <div id="curves"></div>
+
+  <section id="newsSec" hidden>
+    <h2 id="newsH">Headlines around the event day</h2>
+    <p class="sub" id="newsSub"></p>
+    <div class="news"><ol id="newsList"></ol></div>
+    <details class="more" id="newsMoreBox" hidden><summary id="newsMoreSum"></summary>
+      <div class="news"><ol id="newsMore"></ol></div></details>
+    <p class="sub" id="newsSrc" style="font-size:12px"></p>
+  </section>
+
+  <section class="notes">
+    <h2 style="font-size:17px">Method and data</h2>
+    <div id="method"></div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const P = __PAYLOAD__;
+const $ = (id) => document.getElementById(id);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmtD = (s) => { const d = new Date(s + "T12:00:00Z"); return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }); };
+const fmtLong = (s) => { const d = new Date(s + "T12:00:00Z"); return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }); };
+const pc = (x, d = 3) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(d) + "%";
+const ord = (n) => { const r = Math.round(n); const s = ["th","st","nd","rd"], v = r % 100; return r + (s[(v - 20) % 10] || s[v] || s[0]); };
+const pLo = P.pct, pHi = 100 - P.pct;
+
+// ---------------- text
+$("eyebrow").textContent = `Week of ${fmtD(P.week_start)} – ${fmtD(P.week_end)} ${P.week_end.slice(0,4)} · generated ${P.generated}`;
+$("lede").textContent = `Each of the last ${P.rows.length} trading days' USD/TRY returns is ranked against the ${P.n_hist} daily returns before it. Days below the ${ord(pLo)} or above the ${ord(pHi)} percentile count as tail days. For those days, the US Treasury zero curve is compared with the previous US trading day.`;
+
+const ext = P.rows.reduce((a, b) => Math.abs(b.rank - 50) > Math.abs(a.rank - 50) ? b : a);
+if (P.flagged.length) {
+  const list = P.rows.filter(r => r.flag).map(r => `${fmtD(r.date)} (${pc(r.ret)})`).join(", ");
+  $("verdict").innerHTML = `<b>${P.flagged.length} of ${P.rows.length} days</b> fell outside last year's ${ord(pLo)}–${ord(pHi)} percentile band: ${list}.`;
+} else {
+  $("verdict").innerHTML = `<b>No day last week fell outside last year's ${ord(pLo)}–${ord(pHi)} percentile band.</b> The closest was ${fmtLong(ext.date)} at ${pc(ext.ret)}, the ${ord(ext.rank)} percentile, against a ${ord(pHi)} percentile of ${pc(P.hi)}.`;
+}
+const stats = [
+  ["Week's total move", pc(P.week_cum, 2), `USD/TRY ${P.rows[0].px.toFixed(3)} → ${P.rows[P.rows.length-1].px.toFixed(3)}`],
+  [`${ord(pLo)} percentile`, pc(P.lo), "last-year daily return"],
+  [`${ord(pHi)} percentile`, pc(P.hi), "last-year daily return"],
+  ["Last-year daily mean", pc(P.hist_mean), `σ ${P.hist_sd.toFixed(3)}%`],
+  ["Tail days", `${P.flagged.length} / ${P.rows.length}`, P.flagged.length ? "see table below" : "none flagged"],
+];
+$("stats").innerHTML = stats.map(([k, v, s]) => `<div class="stat"><span class="k">${k}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join("");
+$("weekSub").textContent = `Daily log returns of USD/TRY. The shaded band runs from the ${ord(pLo)} to the ${ord(pHi)} percentile of ${P.hist_start} – ${P.hist_end}. Positive means the lira weakened.`;
+$("histSub").textContent = `Distribution of the ${P.n_hist} daily returns from ${P.hist_start} to ${P.hist_end}, with last week's days marked above it. The cluster near +0.2% is mostly Fridays: the ECB fixing on a Friday carries the weekend's interest-rate differential, so Fridays sit high in the pooled distribution.`;
+
+// tables
+const pill = (f) => f ? `<span class="pill hot">${f === "high" ? "Above " + ord(pHi) : "Below " + ord(pLo)}</span>` : `<span class="pill">Inside band</span>`;
+$("weekTable").innerHTML = `<thead><tr><th>Date</th><th>USD/TRY</th><th>Return</th><th>Percentile, all days</th><th>Percentile, same weekday</th><th>Status</th></tr></thead><tbody>` +
+  P.rows.map(r => `<tr><td>${fmtD(r.date)} ${r.date.slice(0,4)}</td><td class="num">${r.px.toFixed(3)}</td><td class="num">${pc(r.ret)}</td><td class="num">${r.rank.toFixed(1)}</td><td class="num">${r.rank_wd.toFixed(1)} <span style="color:var(--ink-3)">(n=${r.n_wd})</span></td><td>${pill(r.flag)}</td></tr>`).join("") + `</tbody>`;
+
+const exRows = P.flagged.length ? P.rows.filter(r => r.flag) : (P.fallback ? [ext] : []);
+if (!P.flagged.length) {
+  $("excessNote").innerHTML = `<div class="note">No tail days last week. The table and curves below use the week's most extreme day, ${fmtLong(ext.date)}, so the rates comparison is still there. It is a near-miss, not a tail day.</div>`;
+}
+$("excessTable").innerHTML = exRows.length ? `<thead><tr><th>Date</th><th>Return</th><th>Threshold</th><th>Distance to threshold</th><th>Percentile</th><th>Status</th><th>Zero curves compared</th></tr></thead><tbody>` +
+  exRows.map(r => {
+    const thr = r.ret >= 0 ? P.hi : P.lo;
+    const c = P.curves.find(c => c.event === r.date);
+    return `<tr><td>${fmtD(r.date)} ${r.date.slice(0,4)}</td><td class="num">${pc(r.ret)}</td><td class="num">${pc(thr)}</td><td class="num">${((r.ret - thr) * 100).toFixed(1)} bp</td><td class="num">${r.rank.toFixed(1)}</td><td>${r.flag ? pill(r.flag) : '<span class="pill">Closest to band</span>'}</td><td class="mono">${c ? c.prev + " → " + c.day : "–"}</td></tr>`;
+  }).join("") + `</tbody>` : `<tbody><tr><td>No tail days in the week.</td></tr></tbody>`;
+
+// curve sections
+$("curves").innerHTML = P.curves.map((c, i) => `
+  <section style="margin-top:${i ? 40 : 0}px">
+    <h2>US Treasury zero curve: ${fmtD(c.prev)} vs ${fmtD(c.day)}</h2>
+    <p class="sub">Zero rates from the ${P.curve_label || "U.S. Treasury par curve, bootstrapped"}, ${P.comp}. ${c.shifted ? `USD/TRY event day ${c.event} was not a US trading day, so ${c.day} is used. ` : ""}The lower panel shows the change from the previous US trading day at each standard tenor.</p>
+    <div class="legend">
+      <span><i class="sw line" style="background:var(--s-prev)"></i>${fmtD(c.prev)} (previous day)</span>
+      <span><i class="sw line" style="background:var(--s-main)"></i>${fmtD(c.day)} (event day)</span>
+      <span><i class="sw" style="background:var(--up)"></i>Rate up</span>
+      <span><i class="sw" style="background:var(--down)"></i>Rate down</span>
+    </div>
+    <div class="grid2">
+      <div class="chart"><canvas id="curve${i}" aria-label="Zero curves"></canvas></div>
+      <div class="chart"><canvas id="chg${i}" aria-label="Daily change in zero rates, basis points"></canvas></div>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Tenor</th>${c.tenors.map(t => `<th>${t}</th>`).join("")}</tr></thead>
+      <tbody>
+        <tr><td>${fmtD(c.prev)}</td>${c.std_prev.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>${fmtD(c.day)}</td>${c.std_day.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>Δ (bp)</td>${c.chg_bp.map(v => `<td class="num" style="color:${v > 0 ? "var(--up)" : v < 0 ? "var(--down)" : "inherit"}">${(v > 0 ? "+" : "") + v.toFixed(1)}</td>`).join("")}</tr>
+      </tbody></table></div>
+  </section>`).join("");
+
+
+if (P.news && P.news.items && P.news.items.length) {
+  const N = P.news, R = N.relevance; $("newsSec").hidden = false;
+  const esc = (x) => String(x).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const [w0, w1] = N.window.split(" to ");
+  const maxRel = Math.max(...N.items.map(n => n.relevance || 0), 1e-9);
+  const li = (n) => `<li><span class="d">${fmtD(n.date)}</span><div class="body">
+      <a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>
+      ${n.why ? `<span class="why">${esc(n.why)}</span>` : ""}
+      <span class="meta"><span class="tag ${n.region === "US" ? "us" : "tr"}">${esc(n.region)}</span>${n.kind ? `<span class="tag">${esc(n.kind)}</span>` : ""}${esc(n.source)}
+        ${R ? `<span class="rel" title="Similarity to the up-day prompt ${n.sim_up.toFixed(3)}, down-day prompt ${n.sim_down.toFixed(3)}"><span class="rk">#${n.rel_rank}</span><span class="bar"><i style="width:${Math.max(4, 100 * (n.relevance || 0) / maxRel).toFixed(0)}%"></i></span>${(n.relevance || 0).toFixed(3)}</span>` : ""}</span>
+      ${R && n.matched && n.matched.length ? `<span class="terms">Matched: ${n.matched.map(esc).join(", ")}</span>` : ""}
+    </div></li>`;
+  if (R) {
+    const top = N.items.filter(n => n.selected), rest = N.items.filter(n => !n.selected);
+    $("newsSub").innerHTML = `The ${top.length} headlines from ${fmtD(w0)} to ${fmtD(w1)} that best match the <b>${esc(R.label)}</b> prompt, ranked by similarity (${esc(R.method)}). ${rest.length ? `${rest.length} other collected headlines are listed underneath.` : ""} ${esc(N.summary || "")}`;
+    $("newsSub").insertAdjacentHTML("afterend", `<details class="more"><summary>Show the ${R.direction}-day prompt the headlines were compared with</summary><p class="promptq">${esc(R.prompt)}</p></details>`);
+    $("newsList").innerHTML = top.map(li).join("");
+    if (rest.length) {
+      $("newsMoreBox").hidden = false;
+      $("newsMoreSum").textContent = `Show the other ${rest.length} collected headlines`;
+      $("newsMore").innerHTML = rest.map(li).join("");
+    }
+  } else {
+    $("newsSub").textContent = `Top ${N.items.length} US and Turkey macro and political stories from ${fmtD(w0)} to ${fmtD(w1)}, newest first. ${N.summary || ""}`;
+    const items = [...N.items].sort((a, b) => b.date.localeCompare(a.date) || (a.region === "US" ? -1 : 1));
+    $("newsList").innerHTML = items.map(li).join("");
+  }
+  const nY = N.items.filter(n => n.via === "Yahoo").length;
+  $("newsSrc").textContent = N.source_note || `${nY} of ${N.items.length} stories were found on Yahoo Finance and News; the rest came from general web search, because Google News does not allow automated access. One-line notes are summaries, not quotes.`;
+}
+
+$("method").innerHTML = [
+  `<p><b>FX data.</b> USD/TRY from ${P.fx_label || "ECB euro reference rates (≈14:15 CET) via the Frankfurter API"}. Returns are daily log returns in percent. "Last week" is the last ${P.rows.length} published fixings; "last year" is the ${P.n_hist} returns before them. The percentile rank is the share of last-year returns at or below the day's return.</p>`,
+  (P.curve_label || "").startsWith("Federal") ? `<p><b>Rates data.</b> Federal Reserve Gürkaynak–Sack–Wright curve: daily Nelson–Siegel–Svensson parameters evaluated as continuously compounded zero rates. Published with a lag of several days; less reliable below about 1Y.</p>` : `<p><b>Rates data.</b> U.S. Treasury Daily Par Yield Curve (CMT, end of day New York). Bills up to 6M are treated as zero-coupon; the par curve is interpolated (PCHIP) onto a semi-annual grid and discount factors are bootstrapped out to 30Y.</p>`,
+  `<p><b>Timing.</b> The ECB fixing is taken before the US session opens, so a US curve move on the same date can follow the FX move rather than drive it. USD/TRY has a strong managed upward drift, so the band sits mostly above zero; the same-weekday column ranks each day only against the same weekday of last year.</p>`,
+].join("");
+
+// ---------------- charts
+const charts = [];
+function base() {
+  Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = css("--ink-2");
+  Chart.defaults.borderColor = css("--grid");
+}
+const tip = () => ({ backgroundColor: css("--panel"), titleColor: css("--ink"), bodyColor: css("--ink-2"), borderColor: css("--rule"), borderWidth: 1, padding: 10, displayColors: false });
+
+// draws dashed vertical lines and labels (histogram percentiles)
+const vlines = {
+  id: "vlines",
+  afterDatasetsDraw(ch, _a, o) {
+    if (!o || !o.lines) return;
+    const { ctx, chartArea: ca, scales: { x } } = ch;
+    ctx.save();
+    o.lines.forEach(l => {
+      const px = x.getPixelForValue(l.v);
+      ctx.strokeStyle = css("--ink-3"); ctx.setLineDash([4, 4]); ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(px, ca.top); ctx.lineTo(px, ca.bottom); ctx.stroke();
+      ctx.setLineDash([]); ctx.fillStyle = css("--ink-2"); ctx.font = `11px ${Chart.defaults.font.family}`;
+      ctx.textAlign = l.align || "left"; ctx.fillText(l.t, px + (l.align === "right" ? -5 : 5), ca.top + 12);
+    });
+    ctx.restore();
+  }
+};
+// value labels above/below bars
+const barLabels = {
+  id: "barLabels",
+  afterDatasetsDraw(ch, _a, o) {
+    if (!o || !o.on) return;
+    const { ctx } = ch; const meta = ch.getDatasetMeta(o.ds ?? 0); const data = ch.data.datasets[o.ds ?? 0].data;
+    ctx.save(); ctx.fillStyle = css("--ink"); ctx.font = `500 ${ch.width < 420 ? 9 : 11}px ${getComputedStyle(document.body).fontFamily}`; ctx.textAlign = "center";
+    meta.data.forEach((b, i) => { const v = data[i]; if (v == null) return; ctx.fillText(o.fmt(v), b.x, v >= 0 ? b.y - 6 : b.y + 14); });
+    ctx.restore();
+  }
+};
+
+function draw() {
+  charts.splice(0).forEach(c => c.destroy());
+  base();
+  const up = css("--up"), main = css("--s-main"), band = css("--band"), ink3 = css("--ink-3");
+
+  // 1) week bars with band
+  const labels = P.rows.map(r => { const [wd, ...rest] = fmtD(r.date).replace(',', '').split(' '); return [wd, rest.join(' ')]; });
+  const vals = P.rows.map(r => r.ret);
+  const ymax = Math.max(P.hi, ...vals) * 1.25, ymin = Math.min(P.lo, ...vals, 0) - 0.03;
+  charts.push(new Chart($("weekChart"), {
+    data: { labels, datasets: [
+      { type: "bar", label: "Return", data: vals, backgroundColor: P.rows.map(r => r.flag ? up : main), borderRadius: 4, borderSkipped: "start", maxBarThickness: 46, order: 1 },
+      { type: "line", label: "p" + pLo, data: labels.map(() => P.lo), borderColor: ink3, borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, order: 2 },
+      { type: "line", label: "p" + pHi, data: labels.map(() => P.hi), borderColor: ink3, borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, fill: "-1", backgroundColor: band, order: 2 },
+    ]},
+    options: { maintainAspectRatio: false, layout: { padding: { top: 8 } },
+      scales: { y: { min: ymin, max: ymax, ticks: { callback: v => v.toFixed(2) + "%" }, grid: { color: css("--grid") } }, x: { grid: { display: false }, ticks: { maxRotation: 0 } } },
+      plugins: { legend: { display: false }, tooltip: { ...tip(), filter: i => i.datasetIndex === 0, callbacks: {
+        title: (it) => P.rows[it[0].dataIndex].date + " · " + P.rows[it[0].dataIndex].dow,
+        label: (it) => { const r = P.rows[it.dataIndex]; return [`Return ${pc(r.ret)}`, `${ord(r.rank)} percentile of last year`, `USD/TRY ${r.px.toFixed(3)}`]; } } },
+        barLabels: { on: true, fmt: v => pc(v, 3) } } },
+    plugins: [barLabels, { id: "bandLbl", afterDatasetsDraw(ch) {
+      const { ctx, chartArea: ca, scales: { y } } = ch; ctx.save(); ctx.fillStyle = css("--ink-2"); ctx.font = `11px ${Chart.defaults.font.family}`; ctx.textAlign = "left";
+      ctx.fillText(`${ord(pHi)} pct ${pc(P.hi)}`, ca.left + 4, y.getPixelForValue(P.hi) - 5);
+      ctx.fillText(`${ord(pLo)} pct ${pc(P.lo)}`, ca.left + 4, y.getPixelForValue(P.lo) + 13); ctx.restore(); } }]
+  }));
+
+  // 2) histogram + week markers
+  const maxC = Math.max(...P.hist_bins.map(b => b[1]));
+  const wkPts = P.rows.map(r => ({ x: r.ret, y: maxC * 1.12, r }));
+  const xs = P.hist_bins.map(b => b[0]);
+  charts.push(new Chart($("histChart"), {
+    data: { datasets: [
+      { type: "bar", data: P.hist_bins.map(b => ({ x: b[0], y: b[1] })), backgroundColor: css("--s-hist"), barPercentage: 1, categoryPercentage: 1, borderRadius: 2, grouped: false },
+      { type: "scatter", data: wkPts, backgroundColor: wkPts.map(p => p.r.flag ? up : main), borderColor: css("--panel"), borderWidth: 2, pointRadius: 6, pointHoverRadius: 8 },
+    ]},
+    options: { maintainAspectRatio: false, layout: { padding: { top: 6 } },
+      scales: { x: { type: "linear", min: Math.min(xs[0], ...P.rows.map(r => r.ret)) - P.bin_w, max: Math.max(xs[xs.length-1], ...P.rows.map(r => r.ret)) + P.bin_w, ticks: { callback: v => v.toFixed(2) + "%" }, grid: { display: false } },
+                y: { max: Math.ceil(maxC * 1.25), title: { display: true, text: "days", color: css("--ink-3") }, grid: { color: css("--grid") } } },
+      plugins: { legend: { display: false }, vlines: { lines: [{ v: P.lo, t: ord(pLo), align: "right" }, { v: P.hi, t: ord(pHi) }] },
+        tooltip: { ...tip(), callbacks: {
+          title: (it) => it[0].datasetIndex === 1 ? wkPts[it[0].dataIndex].r.date : `${pc(it[0].raw.x - P.bin_w/2)} to ${pc(it[0].raw.x + P.bin_w/2)}`,
+          label: (it) => it.datasetIndex === 1 ? [`Return ${pc(wkPts[it.dataIndex].r.ret)}`, `${ord(wkPts[it.dataIndex].r.rank)} percentile`] : `${it.raw.y} days` } } } },
+    plugins: [vlines]
+  }));
+
+  // 3) curves
+  P.curves.forEach((c, i) => {
+    const std = new Set(c.std_t.map(t => +t.toFixed(4)));
+    const ptR = (ctx) => std.has(+ctx.raw.x.toFixed(4)) ? 3.5 : 0;
+    charts.push(new Chart($("curve" + i), {
+      type: "line",
+      data: { datasets: [
+        { label: c.prev, data: c.curve_prev.map(([x, y]) => ({ x, y })), borderColor: css("--s-prev"), backgroundColor: css("--s-prev"), borderWidth: 2, pointRadius: ptR, tension: 0 },
+        { label: c.day, data: c.curve_day.map(([x, y]) => ({ x, y })), borderColor: main, backgroundColor: main, borderWidth: 2, pointRadius: ptR, tension: 0 },
+      ]},
+      options: { maintainAspectRatio: false, interaction: { mode: "nearest", axis: "x", intersect: false },
+        scales: { x: { type: "logarithmic", min: 1/12, max: 30, afterBuildTicks: (ax) => { ax.ticks = c.std_t.map(v => ({ value: v })); },
+                       ticks: { callback: (v) => { const k = c.std_t.findIndex(t => Math.abs(t - v) < 1e-6); if (k < 0) return ""; const narrow = $("curve" + i).parentNode.clientWidth < 480; return (!narrow || ["1M","6M","1Y","2Y","5Y","10Y","30Y"].includes(c.tenors[k])) ? c.tenors[k] : ""; }, autoSkip: false, maxRotation: 0 }, grid: { color: css("--grid") } },
+                  y: { ticks: { callback: v => v.toFixed(2) + "%" }, grid: { color: css("--grid") } } },
+        plugins: { legend: { display: false }, tooltip: { ...tip(), displayColors: true, callbacks: {
+          title: (it) => { const t = it[0].raw.x; return t < 1 ? `${Math.round(t * 12)}M` : `${+t.toFixed(2)}Y`; },
+          label: (it) => `${it.dataset.label}: ${it.raw.y.toFixed(3)}%` } } } }
+    }));
+    charts.push(new Chart($("chg" + i), {
+      type: "bar",
+      data: { labels: c.tenors, datasets: [{ data: c.chg_bp, backgroundColor: c.chg_bp.map(v => v >= 0 ? up : css("--down")), borderRadius: 4, borderSkipped: "start", maxBarThickness: 22 }] },
+      options: { indexAxis: "x", maintainAspectRatio: false, layout: { padding: { top: 16, bottom: 4 } },
+        scales: { y: { ticks: { callback: v => v + " bp" }, grid: { color: css("--grid") }, grace: "15%" }, x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 10 } } } },
+        plugins: { legend: { display: false }, title: { display: true, text: "Daily change (bp)", align: "start", color: css("--ink-2"), font: { weight: 500 } },
+          tooltip: { ...tip(), callbacks: { label: (it) => `${(it.raw > 0 ? "+" : "") + it.raw.toFixed(1)} bp` } },
+          barLabels: { on: true, fmt: v => (v > 0 ? "+" : "") + v.toFixed(1) } } },
+      plugins: [barLabels]
+    }));
+  });
+}
+
+function start() { if (window.Chart) draw(); }
+start();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", start);
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(start, 200); });
+new MutationObserver(start).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>

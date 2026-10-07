@@ -1,0 +1,13 @@
+{
+  "_about": "Descriptions of what typically moves USD/TRY on an excess-return day. Edit freely: 'text' is the prompt that headlines are compared with; 'keywords' are added to it (repeat a word to give it more weight). 'up' = USD/TRY rises (lira weakens, dollar strengthens); 'down' = USD/TRY falls (lira strengthens).",
+  "up": {
+    "label": "Up day: USD/TRY rises, lira weakens",
+    "text": "The Turkish lira weakens sharply against a stronger US dollar. In the United States, strong jobs data, hot inflation and a hawkish Federal Reserve raise expectations of an interest rate hike, pushing Treasury yields and the dollar higher and tightening global financial conditions. Oil and energy prices surge on Middle East conflict and supply disruption in the Strait of Hormuz, widening Turkey's energy import bill and current account deficit. In Turkey, political turmoil, arrests of opposition figures, court rulings against the opposition, calls for early elections, scandals and investor losses hit confidence. The Turkish central bank cuts rates or signals easing, sells foreign currency reserves to defend the lira, and foreign investors pull money out of Turkish bonds and stocks. Inflation rises, a rating agency downgrades Turkey, sanctions or diplomatic tensions with the United States escalate.",
+    "keywords": "lira weakens depreciation record low dollar strengthens rate hike hawkish fed yields rise oil surge energy prices crude reserves fall outflows selloff crisis turmoil arrest opposition protest scandal election downgrade sanctions inflation rises current account deficit"
+  },
+  "down": {
+    "label": "Down day: USD/TRY falls, lira strengthens",
+    "text": "The Turkish lira strengthens as the US dollar weakens. In the United States, weak jobs data, rising unemployment, cooling inflation and a dovish Federal Reserve raise expectations of an interest rate cut or a pause, so Treasury yields and the dollar fall and global risk appetite improves. Oil and energy prices fall after a ceasefire, easing of Middle East tensions, reopening of shipping routes or a release of strategic reserves, shrinking Turkey's energy import bill. In Turkey, the central bank hikes interest rates or keeps policy tight, foreign currency reserves rise, foreign investors buy Turkish bonds and stocks in a carry trade, inflation slows more than expected, a rating agency upgrades Turkey, political tensions ease, and relations with the United States improve.",
+    "keywords": "lira strengthens rally appreciation dollar weakens rate cut dovish fed pause yields fall jobs miss unemployment rises oil falls ceasefire reserves rise inflows carry trade inflation slows upgrade stability rate hike central bank tightening"
+  }
+}
