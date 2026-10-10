@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://basart85.github.io/usdtry_report/sitemap.xml
+Sitemap: https://basart85.github.io/usdtry_report/reports/2026-10-06/sitemap.xml

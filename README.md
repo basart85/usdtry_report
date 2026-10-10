@@ -89,6 +89,49 @@ python usdtry_report.py --sim-backend tfidf               # force the tokenizer
 python usdtry_report.py --relevant-top 0                  # keep every headline, no filtering
 ```
 
+## Turkish lira zero curve (`try_zero_curve.py`)
+
+This builds the TRY government zero curve from bond-level data: a definitions file (ISIN, type, coupon frequency, maturity, coupon per period) and a day's market prices (ISIN, clean closing price, traded value).
+
+```bash
+python try_zero_curve.py --defs definitions.xlsx --market Market_Data.xlsx --us   # trade date read from the file
+```
+
+What it does:
+- Repairs prices that lost their decimal point on export.
+- Averages repeated trades in the same bond, weighted by traded value.
+- Keeps only TL fixed-coupon bonds and discounted bills. Floaters, CPI-linked bonds, lease certificates (TRD…) and the gold-denominated bond are excluded and listed in `try_excluded.csv`.
+
+Conventions, checked against Gedik's DİBS bulletin:
+- Coupons fall every 182 days, counted back from maturity, and accrued interest builds up over the period.
+- Quoted compound yield = (1+r)^2 − 1, where r is the half-yearly rate over whole coupon periods. Bills and bonds in their final period use Act/365.
+
+The curve itself:
+- Nelson–Siegel is the default; Svensson is available with `--model nss`. The curve is fitted to dirty prices discounted on actual days.
+- `--us` adds the US zero curve for the same day.
+
+The trade date comes from the market file's Trade Date column. If the file holds several dates, choose one with `--date`; if it has no date column, `--date` is required. The outputs are written to `try_curve_<date>/`, and both CSVs start with a `date` column: `try_zero_curve.png`, `try_zero_curve.csv` (zero, par, 1y forward and the USD spread at standard tenors), `try_bonds.csv` (accrued interest, dirty price, yields, fit error per bond) and `try_fit.json` (model parameters and fit statistics).
+
+### Lira curve in the weekly report
+
+After the excess-return days are found, `usdtry_report.py` builds the lira curves itself, for each event day and for the previous Turkish trading day:
+
+1. It runs `tbliste_import.py DD.MM.YYYY` and `ttb_import.py DD.MM.YYYY` inside `try_curve_<date>/inputs/`. They read `~/BorsaIstanbul/BAP/<date>/` and write `definitions.xlsx` and `Market_Data.xlsx` there.
+2. It runs `try_zero_curve.py` on those two files, which writes the curve into `try_curve_<date>/`.
+3. It compares the two days and adds the lira section to the report: both curves, the daily change in bp, and the TRY − USD spread on the event day, in the same compounding as the US curve. It also writes `try_zero_curve_<date>.png` and `.csv` to the report folder.
+
+The previous day is the latest weekday in the 7 days before the event that has BAP files, so Turkish holidays are skipped. If a day has no BAP files but already has a `try_curve_<date>/` folder, that folder is reused and the log says so. If both are missing, the lira section is left out and `run.log` explains why.
+
+```bash
+python usdtry_report.py --end 2026-10-06                      # import scripts in this folder, BAP data in ~/BorsaIstanbul/BAP
+python usdtry_report.py --end 2026-10-06 --bap-scripts ~/bist # import scripts somewhere else
+python usdtry_report.py --try-source folders                  # don't run the imports; read existing try_curve_* folders
+python usdtry_report.py --try-dir curves                      # keep the try_curve_* folders in ./curves
+python usdtry_report.py --no-try                              # leave the lira curve out
+```
+
+`--try-model nss` and `--try-settle-days 1` are passed on to `try_zero_curve.py`.
+
 ## Website: "Currency & Yield Reports"
 
 `build_site.py` turns every `report_*/` folder in this directory into a static site in `site/`:

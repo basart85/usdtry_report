@@ -13,6 +13,7 @@
   --grid: #eceef2;
   --band: rgba(42, 120, 214, 0.08);
   --s-main: #2a78d6;      /* series 1: event day / last week */
+  --try: #c0392b;         /* Turkish lira event-day curve */
   --s-prev: #9aa3b2;      /* comparison day, recessive */
   --s-hist: #c3d6ee;      /* history histogram */
   --up: #d95926;          /* tail high / rates up */
@@ -29,7 +30,7 @@
   :root:not([data-theme="light"]) {
     --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c;
     --rule: #2a3039; --grid: #232830; --band: rgba(57, 135, 229, 0.12);
-    --s-main: #4f95ea; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
+    --s-main: #4f95ea; --try: #f0705f; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
     --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8;
     color-scheme: dark;
   }
@@ -37,7 +38,7 @@
 :root[data-theme="dark"] {
   --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c;
   --rule: #2a3039; --grid: #232830; --band: rgba(57, 135, 229, 0.12);
-  --s-main: #4f95ea; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
+  --s-main: #4f95ea; --try: #f0705f; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
   --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8;
   color-scheme: dark;
 }
@@ -212,6 +213,42 @@ $("excessTable").innerHTML = exRows.length ? `<thead><tr><th>Date</th><th>Return
     return `<tr><td>${fmtD(r.date)} ${r.date.slice(0,4)}</td><td class="num">${pc(r.ret)}</td><td class="num">${pc(thr)}</td><td class="num">${((r.ret - thr) * 100).toFixed(1)} bp</td><td class="num">${r.rank.toFixed(1)}</td><td>${r.flag ? pill(r.flag) : '<span class="pill">Closest to band</span>'}</td><td class="mono">${c ? c.prev + " → " + c.day : "–"}</td></tr>`;
   }).join("") + `</tbody>` : `<tbody><tr><td>No tail days in the week.</td></tr></tbody>`;
 
+
+// Turkish lira section (data from try_zero_curve.py folders)
+function trySection(c, i) {
+  const t = c.try, sgn = (v, d = 1) => (v > 0 ? "+" : "") + v.toFixed(d);
+  const head = t.tenors.map((tn, k) => `<th>${tn}${t.extrapolated[k] ? "*" : ""}</th>`).join("");
+  const col = (v) => `color:${v > 0 ? "var(--up)" : v < 0 ? "var(--down)" : "inherit"}`;
+  const big = t.chg_bp.reduce((m, v, k) => Math.abs(v) > Math.abs(m.v) ? { v, k } : m, { v: 0, k: 0 });
+  const k2 = t.tenors.indexOf("2Y"), k10 = t.tenors.indexOf("10Y");
+  return `
+  <section style="margin-top:40px">
+    <h2>Turkish lira zero curve: ${fmtD(t.prev)} vs ${fmtD(t.day)}</h2>
+    ${t.synthetic ? `<div class="note"><b>Synthetic test data.</b> At least one of these lira curves (${t.folders.join(", ")}) was generated for testing the workflow, not from market prices.</div>` : ""}
+    <p class="sub">Government zero rates fitted to Turkish Treasury bond prices (try_zero_curve.py, folders ${t.folders.join(" and ")}), ${t.comp_label || P.comp}${t.comp_label && t.comp_label !== P.comp ? `; for the TRY − USD spread the US curve is converted to the same compounding` : ""}.
+      The largest move was ${sgn(big.v)} bp at ${t.tenors[big.k]}${k2 >= 0 && k10 >= 0 ? `; 2Y ${sgn(t.chg_bp[k2])} bp, 10Y ${sgn(t.chg_bp[k10])} bp` : ""}.
+      ${t.extrapolated.some(Boolean) ? "Tenors marked * lie outside the maturities of the bonds and are extrapolated." : ""}</p>
+    <div class="legend">
+      <span><i class="sw dash" style="border-top-color:var(--s-prev)"></i>${fmtD(t.prev)} (previous day)</span>
+      <span><i class="sw line" style="background:var(--try)"></i>${fmtD(t.day)} (event day)</span>
+      <span><i class="sw" style="background:var(--up)"></i>Rate up</span>
+      <span><i class="sw" style="background:var(--down)"></i>Rate down</span>
+    </div>
+    <div class="grid2">
+      <div class="chart"><canvas id="tcurve${i}" aria-label="Turkish lira zero curves"></canvas></div>
+      <div class="chart"><canvas id="tchg${i}" aria-label="Daily change in lira zero rates, basis points"></canvas></div>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Tenor</th>${head}</tr></thead>
+      <tbody>
+        <tr><td>${fmtD(t.prev)}</td>${t.prev_vals.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>${fmtD(t.day)}</td>${t.day_vals.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>Δ (bp)</td>${t.chg_bp.map(v => `<td class="num" style="${col(v)}">${sgn(v)}</td>`).join("")}</tr>
+        <tr><td>TRY − USD, ${fmtD(t.day)} (pts)</td>${t.spread_pts.map(v => `<td class="num">${v.toFixed(2)}</td>`).join("")}</tr>
+      </tbody></table></div>
+  </section>`;
+}
+
 // curve sections
 $("curves").innerHTML = P.curves.map((c, i) => `
   <section style="margin-top:${i ? 40 : 0}px">
@@ -234,7 +271,7 @@ $("curves").innerHTML = P.curves.map((c, i) => `
         <tr><td>${fmtD(c.day)}</td>${c.std_day.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
         <tr><td>Δ (bp)</td>${c.chg_bp.map(v => `<td class="num" style="color:${v > 0 ? "var(--up)" : v < 0 ? "var(--down)" : "inherit"}">${(v > 0 ? "+" : "") + v.toFixed(1)}</td>`).join("")}</tr>
       </tbody></table></div>
-  </section>`).join("");
+  </section>${c.try ? trySection(c, i) : ""}`).join("");
 
 
 if (P.news && P.news.items && P.news.items.length) {
@@ -271,6 +308,7 @@ if (P.news && P.news.items && P.news.items.length) {
 $("method").innerHTML = [
   `<p><b>FX data.</b> USD/TRY from ${P.fx_label || "ECB euro reference rates (≈14:15 CET) via the Frankfurter API"}. Returns are daily log returns in percent. "Last week" is the last ${P.rows.length} published fixings; "last year" is the ${P.n_hist} returns before them. The percentile rank is the share of last-year returns at or below the day's return.</p>`,
   (P.curve_label || "").startsWith("Federal") ? `<p><b>Rates data.</b> Federal Reserve Gürkaynak–Sack–Wright curve: daily Nelson–Siegel–Svensson parameters evaluated as continuously compounded zero rates. Published with a lag of several days; less reliable below about 1Y.</p>` : `<p><b>Rates data.</b> U.S. Treasury Daily Par Yield Curve (CMT, end of day New York). Bills up to 6M are treated as zero-coupon; the par curve is interpolated (PCHIP) onto a semi-annual grid and discount factors are bootstrapped out to 30Y.</p>`,
+  ...(P.curves.some(c => c.try) ? [`<p><b>Turkish lira curve.</b> Zero rates from try_zero_curve.py: a Nelson–Siegel curve fitted to the day's Turkish Treasury bond prices (fixed-coupon bonds and discounted bills; 182-day coupon periods). The report reads the event day's folder and the previous day's, shows the lira rates ${(P.curves.find(c => c.try) || {}).try?.comp_label || "annually compounded"}, and computes the TRY − USD spread on the event day after converting the US curve to the same compounding.</p>`] : []),
   `<p><b>Timing.</b> The ECB fixing is taken before the US session opens, so a US curve move on the same date can follow the FX move rather than drive it. USD/TRY has a strong managed upward drift, so the band sits mostly above zero; the same-weekday column ranks each day only against the same weekday of last year.</p>`,
 ].join("");
 
@@ -381,6 +419,32 @@ function draw() {
       type: "bar",
       data: { labels: c.tenors, datasets: [{ data: c.chg_bp, backgroundColor: c.chg_bp.map(v => v >= 0 ? up : css("--down")), borderRadius: 4, borderSkipped: "start", maxBarThickness: 22 }] },
       options: { indexAxis: "x", maintainAspectRatio: false, layout: { padding: { top: 16, bottom: 4 } },
+        scales: { y: { ticks: { callback: v => v + " bp" }, grid: { color: css("--grid") }, grace: "15%" }, x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 10 } } } },
+        plugins: { legend: { display: false }, title: { display: true, text: "Daily change (bp)", align: "start", color: css("--ink-2"), font: { weight: 500 } },
+          tooltip: { ...tip(), callbacks: { label: (it) => `${(it.raw > 0 ? "+" : "") + it.raw.toFixed(1)} bp` } },
+          barLabels: { on: true, fmt: v => (v > 0 ? "+" : "") + v.toFixed(1) } } },
+      plugins: [barLabels]
+    }));
+    if (!c.try) return;
+    const t = c.try, tc = css("--try");
+    const lbl = t.tenors.map((tn, k) => tn + (t.extrapolated[k] ? "*" : ""));
+    charts.push(new Chart($("tcurve" + i), {
+      type: "line",
+      data: { labels: lbl, datasets: [
+        { label: t.day, data: t.day_vals, borderColor: tc, backgroundColor: tc, borderWidth: 2.5, pointRadius: 3.5, tension: 0.25, order: 0 },
+        { label: t.prev, data: t.prev_vals, borderColor: css("--s-prev"), backgroundColor: css("--s-prev"), borderWidth: 2, borderDash: [5, 4], pointRadius: 2.5, tension: 0.25, order: 1 },
+      ]},
+      options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
+        scales: { x: { grid: { color: css("--grid") }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 11 } } },
+                  y: { ticks: { callback: v => v.toFixed(1) + "%" }, grid: { color: css("--grid") } } },
+        plugins: { legend: { display: false }, tooltip: { ...tip(), displayColors: true, callbacks: {
+          label: (it) => `${it.dataset.label}: ${it.raw.toFixed(3)}%`,
+          afterBody: (it) => `TRY − USD on ${t.day}: ${t.spread_pts[it[0].dataIndex].toFixed(2)} pts` } } } }
+    }));
+    charts.push(new Chart($("tchg" + i), {
+      type: "bar",
+      data: { labels: lbl, datasets: [{ data: t.chg_bp, backgroundColor: t.chg_bp.map(v => v >= 0 ? up : css("--down")), borderRadius: 4, borderSkipped: "start", maxBarThickness: 22 }] },
+      options: { maintainAspectRatio: false, layout: { padding: { top: 16, bottom: 4 } },
         scales: { y: { ticks: { callback: v => v + " bp" }, grid: { color: css("--grid") }, grace: "15%" }, x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 10 } } } },
         plugins: { legend: { display: false }, title: { display: true, text: "Daily change (bp)", align: "start", color: css("--ink-2"), font: { weight: 500 } },
           tooltip: { ...tip(), callbacks: { label: (it) => `${(it.raw > 0 ? "+" : "") + it.raw.toFixed(1)} bp` } },

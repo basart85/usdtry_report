@@ -1,7 +1,59 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-10-07 04:37",
+ "built": "2026-10-10 15:01",
  "reports": [
+  {
+   "slug": "2026-10-09",
+   "week_start": "2026-10-05",
+   "week_end": "2026-10-09",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 1,
+   "tail_dates": [
+    "2026-10-09"
+   ],
+   "ext_date": "2026-10-09",
+   "ext_ret": -0.08537627058418096,
+   "ext_rank": 3.1746031746031744,
+   "ext_flag": "low",
+   "week_cum": 0.05695803567400404,
+   "px_start": 49.157,
+   "px_end": 49.173,
+   "lo": -0.03778307892126964,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": false,
+   "curve_day": "2026-10-09",
+   "curve_prev": "2026-10-08",
+   "chg_2y": 4.95,
+   "chg_10y": 1.82,
+   "chg_30y": -1.6,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Fed rate hikes and rising Treasury yields fuel inflation fears",
+     "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9JVlMyVUp1YklVbWlxZlU0b0tYWUFZQmlwUDZ3QVNaY0JCU1dnZTJha0U4aXJUWmt4RVZXMzdFRDdKdndPSVpzejVzdzdfLS1obFJ2WFZhVUxPak0?oc=5",
+     "region": "US",
+     "date": "2026-10-08"
+    },
+    {
+     "title": "Turkey inflation drops below 30%, bolstering rate-cut bets as lira support masks pressure",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPU0pLM0R1ZlJONkI5ZkdvalR4S0NIQUplQ2E2UFhpSm9FSDJDbmpFRXVUb1JIN0NFNmJpU080Z0JWVFN1X1RrUFVVcXBmZU93TUxlaHo5ZTdTUHA1RjJqel9CWkVva0tjdTlJZV9hbFpydFRDYkxvbXI1amxyZDRSMl9EUklJOVVYblJEcEV4cFcyZHdZeDF0QVU2aXRwQ2pTWFY1MjN2WHlZYmhVUHFHOWN4YjVBZjlRTU9MaUpxTWp0cjJDSlVUY1FrVndWZw?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-06"
+    },
+    {
+     "title": "Dow Jones Forecast: DJIA rises as Oil slips and Treasury yields pause",
+     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQd3ZRMzRIczA4b2JCOUJmanYwYjFySmg0bllWemFHNU9hR3k4emNLOTVqQ2ZOcFR1dF9DaWY1QVF1dlVUNVVCakViRE8zRnVjOGUybDZNYS1UVzBSZzdlczU2NlV2akViZTMzS29yN3YxTTNZQ1JiVWZ2aWxMdmNDdlU2Q1RpbmVMTlBKc0IyaS1WLWxobmRZcXVfMHFHWkxaTjg4UDNFNm1PeDRhZkphNzFITkFfOUU?oc=5",
+     "region": "US",
+     "date": "2026-10-09"
+    }
+   ],
+   "direction": "down",
+   "verdict": "1 of 5 days fell outside last year's 5th–95th percentile band: Fri 9 Oct (−0.085%).",
+   "generated": "2026-10-10 14:59",
+   "url": "reports/2026-10-09/index.html"
+  },
   {
    "slug": "2026-10-06",
    "week_start": "2026-09-30",
@@ -29,27 +81,27 @@
    "n_news": 20,
    "headlines": [
     {
-     "title": "Turkey's $18 billion funds scandal poses meaningful risks to economy, JPMorgan warns",
-     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPaXFpTEd1LU1oVWh2WFRsbThOU1IyZXExSWJJd3ZnVmh6OHdtZUhDMTlkcVZveHdTeERucnI0d2haNDBMTnRrSTB0WmdlYzZaRjZSMkRLczJFTkhKVDBKWmRQQlQyaHF5OEdORzkzT1FpTWZBSExpQXpRcy1acUZ3TjExdEg0RzZncGhlTllXa3piR0pOVG8xNXF5Uklfd1lwdWRfNG5xcUlWaVRGQ2ZTRUhMR0hBZzV0bUE1eVRWMWMwc0Z1dml6WGV2Rk1lRzJ2?oc=5",
-     "region": "Turkey",
+     "title": "Dollar Falls as Soft Job Data Roils Timing of Fed Rate-Hike Bets",
+     "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQa1RMakhNNkV1ai11aHZSMURRNmtES2pGX29KSUJkV3ZSM3p1X1ZoT1EtUFFVNEFHbTB5blRnWkJpV0sxR2F3RVlONG5qTnV3dUZGb2FrM1UxZ3BuWXpLenpKV1RDNGxkSm9NbDh0a3hBZ1FNX1d3bUw5YkFpbkd6WnlTZTZhLVZyZE9ZTXduY01XUkpQLW5oQW93MkxzczNlcklqcEpXNkhGTzdjV05VRDZTZjY?oc=5",
+     "region": "US",
      "date": "2026-10-02"
     },
     {
-     "title": "Turkey’s main opposition urges Erdoğan to resign or call election over fund crisis",
-     "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQMjljT3Y0RkthQnlheVRhbVBhbmh1Y0ZIOWJZSndRZGVQeHJ0T1A1bDc1OV9LejU0c3dyX0ZXNFVmXzkwZWdEUVlWUWxPMFkzNU9aM0laeDRnUGY3bm45REFoYm9iNjJWUG1rV0twWUU1V1o5NFdfYzM3WGYyeV9jOURvNldVenBDTDZvRHZKQUpYM1k3dXVWYUVmdVY2cmprOFJvVmRidUtHMVpUT0RJa2hXbS0yT2VGOE83bV84bUrSAcYBQVVfeXFMUE0wOHhyYVQ3MGt4LXE1d2pmSThfX1RPeEhZaWp5M01UWVBqR2RhWE5ocC1oNllPNU9YQkFRU0Jmbmg2Q0R1YUhUMkxuSmRsM2FjTldKNVc3X3hNVEZqMDhfZ3dCX0F2NTBGeEtyck5NQ2plRUVUQWNURERsVVg1eldNSnNmcEdHU3dhb0hDUTFaU052Z09vZUZGWWNOSjk3MFFIT2d1TjNGT3NqUlVJdm1hTkpTNjRHcklWcjdZZVRPZTkyMnJR?oc=5",
-     "region": "Turkey",
-     "date": "2026-10-01"
+     "title": "Treasury yields sink after weak September jobs report dims October Fed hike odds",
+     "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5JVm9YT2xucW1TQXhFUlFieVJIOWlrVGxlRzRtQkl1eFAxQ1diQXQ3Qkpvc2hwcDV5cXBpSmhLRDBZaU05dUc1T2s1MFZIZy1xendWNkdGTlFOX0pVeTNfaDBnU3Ixa3hUMnBNaVpKRXA1eUU0dXhpalhhVFhiZw?oc=5",
+     "region": "US",
+     "date": "2026-10-02"
     },
     {
-     "title": "Explainer: How Turkey's investment fund bubble burst",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNZ0l1bkJFbVQwY0lWdXRvbmM1aUxFQUZVLWQwd1RPM1JINHhNLTZqLWY0cEFMb3RKVnFFbmQ2ZERnX0tuam9KdG90aW5RaGtsV0ZXOUd1WkdVNjUteXVTSHYxUTkwSWdZdnI3RXRmTEVMWEpyTXB0NF9GSnQ5UTNOU1V4ZWtLaUdTVFJQT1F5NG84cWdRVFZveXh3?oc=5",
-     "region": "Turkey",
+     "title": "US Jobs Report: September Payrolls Rise Just 29,000, Unemployment Rate Hits 4.2%",
+     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQS0RRMmc0cDh1R0xSbHJCOE5md00xb25URVFmOEZsR1N6TjdOZkgxeXd4TFhTd05OQnNuLU1VODNhX1BSMjZBRTR3cWRQa3h1bzU1bk1hNllOV3FQZEx6aGtqMUlxZzNvLWpoaHRzSXEwSXBHMlVmMVhhWkg1c0ljdE02dGFObEVsUTMwQ3dnUlhsV2pkdm9Sd04zVThGRHU1T3h6WW44QklkWUxvMEdGSXhTUzZJeGx6cHRB0gHDAUFVX3lxTE02eWZ2NzNqOF96SkxkWnZDaEhjVFVKb293ZkRpSXhJNHZPbDdwdlhRUlB2dTFYRWY2WjN4YmtMejZHYmh5V0NIM2dfNTJFWVhDUkQ5T29Vcm92RTBJN0U0Q3d6OGs2SVNYcjJ0b1VVTXNEX3JFVlVQM05oNXp1ejVoUWZoLWd6TVc0cUNBUFQwRDhveWlFaThSSHN1M3djSEZJQU5ZRFk4d3BZSldYYmNUS2Z0NG44X1p6UjZHbUp6S3FRcw?oc=5",
+     "region": "US",
      "date": "2026-10-02"
     }
    ],
    "direction": "up",
    "verdict": "No tail days. The largest move was Fri 2 Oct at +0.226%, the 91st percentile, against a 95th percentile of +0.237%.",
-   "generated": "2026-10-07 03:58",
+   "generated": "2026-10-09 23:29",
    "url": "reports/2026-10-06/index.html"
   }
  ]
