@@ -1,7 +1,59 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-10-10 15:20",
+ "built": "2026-10-18 23:05",
  "reports": [
+  {
+   "slug": "2026-10-16",
+   "week_start": "2026-10-12",
+   "week_end": "2026-10-16",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 1,
+   "tail_dates": [
+    "2026-10-12"
+   ],
+   "ext_date": "2026-10-12",
+   "ext_ret": 0.3329614283081206,
+   "ext_rank": 99.20634920634922,
+   "ext_flag": "high",
+   "week_cum": 0.7173283038508504,
+   "px_start": 49.337,
+   "px_end": 49.527,
+   "lo": -0.03778307892126964,
+   "hi": 0.2363701098872495,
+   "pct": 5,
+   "fallback": false,
+   "curve_day": "2026-10-09",
+   "curve_prev": "2026-10-08",
+   "chg_2y": 4.95,
+   "chg_10y": 1.82,
+   "chg_30y": -1.6,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Iran War Day 227: Oil Prices Climb as Trump Mulls Joining Yemen War",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPeE5YUzFZZTQ3bUptcUpfN0pLeGViV0FQNkRnQVltbTlZQXZNUTZiNGhMdU1sYl93M2V0TzU3a09zYV9JZnZ3OFREdlBrZ250SnlyaEpxdGhRYlBqYW5Ob0YtYXY3Rk9SdElQc3hWWmJaRUM0M3ZLc1NNbkxYUS05MU0xQ3EtdTh0T2ZBM0hfRllOeDdHZnFLUWc1ZjE0UWZQNWUzM2M2bDFzTjdx?oc=5",
+     "region": "US",
+     "date": "2026-10-12"
+    },
+    {
+     "title": "Morgan Stanley Strategist: Bond Market Has Already Done the Fed's \"Rate Hikes\" by 120 Basis Points — Two Key Signals to Watch for a U.S. Stock Rebound",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE84cEhIOVhGODZMbV9zNnJ0Q2cxQlNGZnY5eDNwc2t4Z25CeVZYejk4Ukpta2N0OU5SeXZ5MEZRVEFURWltNkZQcXh1ZWEydFAtR1V4YmtBcWh4V1l6M2dHbDRySGo1aXByMUZacUpVYTNqUTRpY2c?oc=5",
+     "region": "US",
+     "date": "2026-10-12"
+    },
+    {
+     "title": "Fed officials want to hold off a rate hike this month. Will this week’s inflation data let them?",
+     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMHFzTmdfSmlRTFY3Z21YT3NRQ2oxV0xwMVdtcmJVNDE3dXFKbTFPUW01dnlwVVJqUlRCY3ZrZEh0RE03MDU5QWsyampFdGVINDdPdEtXNnBjX0hOMlFuR2FRdGsyaDBrVkF3VENILU45WU9rS1luVi1LMXhVakhmSXhRc2JiU2JqQXpnZzVpOXFjRWozTnhzbDU0a1Vya2NVNXJXLTBBSnp1UEdfcW10eFRpekxrdXZCcXVxSjg2UmozWkRfNzlDY1FUOE1GT0FnWHc?oc=5",
+     "region": "US",
+     "date": "2026-10-12"
+    }
+   ],
+   "direction": "up",
+   "verdict": "1 of 5 days fell outside last year's 5th–95th percentile band: Mon 12 Oct (+0.333%).",
+   "generated": "2026-10-18 23:01",
+   "url": "reports/2026-10-16/index.html"
+  },
   {
    "slug": "2026-10-09",
    "week_start": "2026-10-05",

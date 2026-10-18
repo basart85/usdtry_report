@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>USD/TRY week to 16 Oct 2026 · Currency &amp; Yield Reports</title>
+<meta name="description" content="1 of 5 days fell outside last year&#x27;s 5th–95th percentile band: Mon 12 Oct (+0.333%).">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://basart85.github.io/usdtry_report/reports/2026-10-16/">
+<meta property="og:title" content="USD/TRY week to 16 Oct 2026 · Currency &amp; Yield Reports">
+<meta property="og:description" content="1 of 5 days fell outside last year&#x27;s 5th–95th percentile band: Mon 12 Oct (+0.333%).">
+<meta property="og:image" content="https://basart85.github.io/usdtry_report/reports/2026-10-16/preview.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="US Treasury zero curves 2026-10-08 vs 2026-10-09 with daily change in basis points">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="USD/TRY week to 16 Oct 2026 · Currency &amp; Yield Reports">
+<meta name="twitter:description" content="1 of 5 days fell outside last year&#x27;s 5th–95th percentile band: Mon 12 Oct (+0.333%).">
+<meta name="twitter:image" content="https://basart85.github.io/usdtry_report/reports/2026-10-16/preview.png">
+<link rel="canonical" href="https://basart85.github.io/usdtry_report/reports/2026-10-16/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, a summary strip, then three numbered-by-question sections (returns → tails → rates) */
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --ink: #14181f;
+  --ink-2: #4a5160;
+  --ink-3: #7a8191;
+  --rule: #e1e4ea;
+  --grid: #eceef2;
+  --band: rgba(42, 120, 214, 0.08);
+  --s-main: #2a78d6;      /* series 1: event day / last week */
+  --try: #c0392b;         /* Turkish lira event-day curve */
+  --s-prev: #9aa3b2;      /* comparison day, recessive */
+  --s-hist: #c3d6ee;      /* history histogram */
+  --up: #d95926;          /* tail high / rates up */
+  --down: #256abf;        /* tail low / rates down */
+  --pill-bg: #fdeee7;
+  --pill-ink: #a8401a;
+  --pill2-bg: #eef1f5;
+  --pill2-ink: #4a5160;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c;
+    --rule: #2a3039; --grid: #232830; --band: rgba(57, 135, 229, 0.12);
+    --s-main: #4f95ea; --try: #f0705f; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
+    --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111418; --panel: #191d23; --ink: #eef1f5; --ink-2: #b4bbc8; --ink-3: #868e9c;
+  --rule: #2a3039; --grid: #232830; --band: rgba(57, 135, 229, 0.12);
+  --s-main: #4f95ea; --try: #f0705f; --s-prev: #6b7483; --s-hist: #2d4a6e; --up: #ef7a46; --down: #5598e7;
+  --pill-bg: #3a2218; --pill-ink: #f3a37f; --pill2-bg: #252b33; --pill2-ink: #b4bbc8;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; margin: 0; }
+.wrap { max-width: 960px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 56px; display: grid; gap: 40px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 22px; margin: 0; text-wrap: balance; }
+.lede { color: var(--ink-2); max-width: 68ch; margin: 0; }
+.verdict { font-size: 17px; max-width: 68ch; margin: 0; }
+.verdict b { font-weight: 600; }
+.stats { display: flex; flex-wrap: wrap; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.stat { background: var(--panel); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; flex: 1 1 150px; }
+.stat .k { font-size: 12px; color: var(--ink-3); letter-spacing: .02em; }
+.stat .v { font-family: var(--f-mono); font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat .s { font-size: 12px; color: var(--ink-2); }
+section { display: grid; gap: 14px; min-width: 0; }
+.sub { color: var(--ink-2); margin: 0; max-width: 72ch; font-size: 14px; }
+.chart { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 14px 8px; position: relative; height: 320px; min-width: 0; }
+.chart.short { height: 240px; }
+.grid2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw.line { height: 3px; border-radius: 2px; }
+.sw.dash { height: 0; border-top: 2px dashed var(--ink-3); border-radius: 0; }
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 9px 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--rule); }
+th { font-weight: 500; font-size: 12px; color: var(--ink-3); letter-spacing: .02em; background: var(--panel); }
+th:first-child, td:first-child { text-align: left; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; font-size: 12px; font-weight: 500; padding: 1px 8px; border-radius: 999px; background: var(--pill2-bg); color: var(--pill2-ink); }
+.pill.hot { background: var(--pill-bg); color: var(--pill-ink); }
+.note { border-left: 3px solid var(--up); padding: 8px 14px; background: var(--panel); border-radius: 0 6px 6px 0; font-size: 14px; color: var(--ink-2); max-width: 80ch; }
+.notes { font-size: 13px; color: var(--ink-2); display: grid; gap: 6px; max-width: 80ch; }
+.notes p { margin: 0; }
+#method { display: grid; gap: 8px; }
+.mono { font-family: var(--f-mono); }
+.news { display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 8px; background: var(--panel); }
+.news li { list-style: none; display: grid; grid-template-columns: 92px 1fr; gap: 4px 14px; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.news li:last-child { border-bottom: 0; }
+.news ol { margin: 0; padding: 0; }
+.news .d { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); padding-top: 3px; }
+.news .body { display: grid; gap: 3px; min-width: 0; }
+.news a { color: var(--ink); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.news a:hover, .news a:focus-visible { border-bottom-color: var(--s-main); color: var(--s-main); outline: none; }
+.news .why { font-size: 13px; color: var(--ink-2); }
+.news .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; color: var(--ink-3); }
+.tag { font-size: 11px; font-weight: 500; padding: 0 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-2); }
+.tag.us { border-color: var(--s-main); color: var(--s-main); }
+.tag.tr { border-color: var(--up); color: var(--up); }
+@media (max-width: 520px) { .news li { grid-template-columns: 1fr; } }
+.rel { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; color: var(--ink-2); }
+.rel .bar { width: 64px; height: 6px; border-radius: 3px; background: var(--grid); overflow: hidden; display: inline-block; }
+.rel .bar i { display: block; height: 100%; background: var(--s-main); border-radius: 3px; }
+.rel .rk { font-weight: 500; color: var(--ink); }
+.terms { font-size: 12px; color: var(--ink-3); }
+details.more { display: grid; gap: 10px; }
+details.more > summary { cursor: pointer; font-size: 14px; color: var(--ink-2); padding: 6px 0; }
+details.more > summary:focus-visible { outline: 2px solid var(--s-main); outline-offset: 2px; border-radius: 4px; }
+details.more .news { margin-top: 10px; opacity: .92; }
+.promptq { font-size: 13px; color: var(--ink-2); border-left: 3px solid var(--s-main); padding: 6px 12px; background: var(--panel); border-radius: 0 6px 6px 0; max-width: 80ch; }
+@media (min-width: 760px) { .grid2 { grid-template-columns: 3fr 2fr; } }
+</style>
+<style>
+.site-nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.site-nav .in { max-width: 960px; margin: 0 auto; padding-inline: 20px; padding-block: 10px; display: flex; flex-wrap: wrap;
+  gap: 6px 16px; align-items: center; font-size: 14px; }
+.site-nav a { color: var(--ink-2); text-decoration: none; }
+.site-nav a:hover, .site-nav a:focus-visible { color: var(--ink); text-decoration: underline; outline: none; }
+.site-nav .home { font-weight: 600; color: var(--ink); }
+.site-nav .pn { margin-left: auto; display: flex; gap: 14px; }
+.site-nav .off { color: var(--ink-3); opacity: .5; }
+.dl { max-width: 960px; margin: 0 auto; padding-inline: 20px; padding-block: 0 56px; display: grid; gap: 12px; }
+.dl h2 { font-family: var(--f-display); font-weight: 600; font-size: 17px; margin: 0; }
+.dl ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.dl li { background: var(--panel); padding: 9px 14px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; font-size: 14px; }
+.dl li a { color: var(--ink); font-family: var(--f-mono); font-size: 13px; overflow-wrap: anywhere; }
+.dl li span { color: var(--ink-3); font-size: 12px; }
+.dl .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.dl .thumbs a { display: block; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 6px; }
+.dl .thumbs img { display: block; width: 100%; height: auto; border-radius: 4px; background: #fff; }
+</style>
+</head><body>
+<nav class="site-nav" aria-label="Site"><div class="in"><a class="home" href="../../index.html">Currency &amp; Yield Reports</a><a href="../../index.html#archive">All reports</a><span class="pn"><a href="../2026-10-09/index.html" title="5 Oct – 9 Oct 2026">← Older: 5 Oct – 9 Oct 2026</a><span class="off">Newer</span></span></div></nav>
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1>USD/TRY tail days and the US zero curve</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <p class="verdict" id="verdict"></p>
+  <div class="stats" id="stats"></div>
+
+  <section>
+    <h2>Last week's daily returns</h2>
+    <p class="sub" id="weekSub"></p>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s-main)"></i>Daily log return</span>
+      <span><i class="sw" style="background:var(--up)"></i>Outside the band (tail day)</span>
+      <span><i class="sw" style="background:var(--band);outline:1px solid var(--rule)"></i>5th–95th percentile band of last year</span>
+    </div>
+    <div class="chart short"><canvas id="weekChart" aria-label="Last week daily returns versus last year's percentile band"></canvas></div>
+  </section>
+
+  <section>
+    <h2>How the week compares with the last year</h2>
+    <p class="sub" id="histSub"></p>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s-hist)"></i>Daily returns, last year (count)</span>
+      <span><i class="sw dash"></i>5th / 95th percentile</span>
+      <span><i class="sw" style="background:var(--s-main);border-radius:50%"></i>Last week's days</span>
+    </div>
+    <div class="chart short"><canvas id="histChart" aria-label="Histogram of last year's daily returns with last week's days marked"></canvas></div>
+    <div class="tbl"><table id="weekTable"></table></div>
+  </section>
+
+  <section>
+    <h2>Days of excess returns</h2>
+    <div id="excessNote"></div>
+    <div class="tbl"><table id="excessTable"></table></div>
+  </section>
+
+  <div id="curves"></div>
+
+  <section id="newsSec" hidden>
+    <h2 id="newsH">Headlines around the event day</h2>
+    <p class="sub" id="newsSub"></p>
+    <div class="news"><ol id="newsList"></ol></div>
+    <details class="more" id="newsMoreBox" hidden><summary id="newsMoreSum"></summary>
+      <div class="news"><ol id="newsMore"></ol></div></details>
+    <p class="sub" id="newsSrc" style="font-size:12px"></p>
+  </section>
+
+  <section class="notes">
+    <h2 style="font-size:17px">Method and data</h2>
+    <div id="method"></div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const P = {"generated": "2026-10-18 23:01", "week_start": "2026-10-12", "week_end": "2026-10-16", "hist_start": "2025-10-15", "hist_end": "2026-10-09", "n_hist": 252, "pct": 5, "lo": -0.03778307892126964, "hi": 0.2363701098872495, "hist_mean": 0.06419790501547232, "hist_sd": 0.09426446886539412, "week_cum": 0.7173283038508504, "rows": [{"date": "2026-10-12", "dow": "Mon", "px": 49.337, "ret": 0.3329614283081206, "rank": 99.20634920634922, "rank_wd": 100.0, "n_wd": 50, "flag": "high"}, {"date": "2026-10-13", "dow": "Tue", "px": 49.367, "ret": 0.06078781188967319, "rank": 67.06349206349206, "rank_wd": 72.54901960784314, "n_wd": 51, "flag": ""}, {"date": "2026-10-14", "dow": "Wed", "px": 49.39, "ret": 0.04657897752227136, "rank": 59.12698412698413, "rank_wd": 69.23076923076923, "n_wd": 52, "flag": ""}, {"date": "2026-10-15", "dow": "Thu", "px": 49.417, "ret": 0.05465199970049461, "rank": 63.888888888888886, "rank_wd": 76.0, "n_wd": 50, "flag": ""}, {"date": "2026-10-16", "dow": "Fri", "px": 49.527, "ret": 0.2223480864302907, "rank": 89.68253968253968, "rank_wd": 61.224489795918366, "n_wd": 49, "flag": ""}], "hist_bins": [[-0.2762991302762696, 1], [-0.258693504803853, 1], [-0.24108787933143638, 0], [-0.22348225385901976, 1], [-0.20587662838660314, 0], [-0.18827100291418652, 0], [-0.1706653774417699, 0], [-0.15305975196935329, 0], [-0.13545412649693667, 1], [-0.11784850102452005, 1], [-0.10024287555210343, 2], [-0.08263725007968681, 3], [-0.06503162460727019, 2], [-0.04742599913485357, 1], [-0.02982037366243695, 9], [-0.01221474819002033, 11], [0.005390877282396289, 18], [0.02299650275481291, 45], [0.04060212822722953, 59], [0.05820775369964615, 20], [0.07581337917206277, 10], [0.09341900464447939, 7], [0.111024630116896, 5], [0.12863025558931263, 4], [0.14623588106172924, 3], [0.16384150653414586, 4], [0.18144713200656248, 11], [0.1990527574789791, 2], [0.21665838295139572, 7], [0.23426400842381234, 15], [0.25186963389622896, 3], [0.2694752593686456, 2], [0.2870808848410622, 1], [0.3046865103134788, 1], [0.32229213578589544, 0], [0.33989776125831206, 1], [0.3575033867307287, 0], [0.3751090122031453, 0], [0.3927146376755619, 0], [0.41032026314797854, 1]], "bin_w": 0.01760562547241662, "flagged": ["2026-10-12"], "fallback": false, "curves": [{"event": "2026-10-12", "prev": "2026-10-08", "day": "2026-10-09", "shifted": true, "curve_prev": [[0.08333333333333333, 4.097733285463132], [0.125, 4.097733285463132], [0.16666666666666666, 4.0879358474912015], [0.25, 4.18588863620597], [0.3333333333333333, 4.244637290305084], [0.5, 4.2544270551079535], [1.0, 4.39295477419752], [1.5, 4.565265258742337], [2.0, 4.703188143719187], [2.5, 4.7613892039150905], [3.0, 4.8029844129589305], [3.5, 4.842968985628661], [4.0, 4.879206595487474], [4.5, 4.913320938086106], [5.0, 4.947006743247959], [5.5, 4.981588638386792], [6.0, 5.015943385942078], [6.5, 5.048097584128314], [7.0, 5.076009763991709], [7.5, 5.099379090489434], [8.0, 5.120031175033245], [8.5, 5.139072091776211], [9.0, 5.157648050142488], [9.5, 5.176948384652514], [10.0, 5.198209453123093], [10.5, 5.222542229348559], [11.0, 5.24996340078964], [11.5, 5.280099151131764], [12.0, 5.312565727707948], [12.5, 5.346966521652489], [13.0, 5.3828891750259364], [13.5, 5.419902686551233], [14.0, 5.457554514224454], [14.5, 5.4953676983718065], [15.0, 5.532838054892944], [15.5, 5.569431517008441], [16.0, 5.604581735816319], [16.5, 5.637688085809531], [17.0, 5.668114260957536], [17.5, 5.695187688831341], [18.0, 5.71820003213791], [18.5, 5.73640908495053], [19.0, 5.749042399022718], [19.5, 5.7553029859763605], [20.0, 5.7543774240971235], [20.5, 5.7496743678162705], [21.0, 5.745137087029971], [21.5, 5.740690183474871], [22.0, 5.736257444138014], [22.5, 5.731761571851978], [23.0, 5.727123948873485], [23.5, 5.7222644323446685], [24.0, 5.717101181478985], [24.5, 5.711550517161555], [25.0, 5.705526815415044], [25.5, 5.698942436870135], [26.0, 5.691707694994254], [26.5, 5.683730866367157], [27.0, 5.674918246739156], [27.5, 5.665174256952668], [28.0, 5.6544016030243744], [28.5, 5.642501494757422], [29.0, 5.629373927143655], [29.5, 5.614918028500349], [30.0, 5.599032478730455]], "curve_day": [[0.08333333333333333, 4.0879358474912015], [0.125, 4.0879358474912015], [0.16666666666666666, 4.0879358474912015], [0.25, 4.205473438415118], [0.3333333333333333, 4.244637290305084], [0.5, 4.274005147238509], [1.0, 4.4224206033822995], [1.5, 4.6084430483014085], [2.0, 4.752641585777068], [2.5, 4.805263307282181], [3.0, 4.841974833652214], [3.5, 4.878717893778408], [4.0, 4.91241079945833], [4.5, 4.944245129533044], [5.0, 4.975472258637003], [5.5, 5.007001192115785], [6.0, 5.038050009955866], [6.5, 5.067346945579385], [7.0, 5.093578148285582], [7.5, 5.116426646471091], [8.0, 5.137073597073259], [8.5, 5.156433320455955], [9.0, 5.175453591565634], [9.5, 5.195118235772259], [10.0, 5.216450360763353], [10.5, 5.2405595154473], [11.0, 5.267617691056992], [11.5, 5.2972641170599415], [12.0, 5.329128158810381], [12.5, 5.36282655470992], [13.0, 5.3979606795855], [13.5, 5.434113808288148], [14.0, 5.470848378499996], [14.5, 5.507703275438198], [15.0, 5.544191185578954], [15.5, 5.579796093119062], [16.0, 5.613971022567929], [16.5, 5.646136164021833], [17.0, 5.675677554089307], [17.5, 5.701946524031907], [18.0, 5.724260165285091], [18.5, 5.741903097544409], [19.0, 5.7541308507831594], [19.5, 5.7601751828333185], [20.0, 5.759251639738178], [20.5, 5.754664545539864], [21.0, 5.75022318061824], [21.5, 5.745837600587632], [22.0, 5.741416446966365], [22.5, 5.736866660466687], [23.0, 5.732093233696216], [23.5, 5.726999003562973], [24.0, 5.721484484804108], [24.5, 5.71544774708178], [25.0, 5.708784339015188], [25.5, 5.701387263345515], [26.0, 5.693147008146517], [26.5, 5.683951639580336], [27.0, 5.673686962126769], [27.5, 5.662236752450137], [28.0, 5.6494830730660865], [28.5, 5.635306671689379], [29.0, 5.619587471527874], [29.5, 5.602205156790142], [30.0, 5.583039856251477]], "tenors": ["1M", "3M", "6M", "1Y", "2Y", "3Y", "5Y", "7Y", "10Y", "20Y", "30Y"], "std_t": [0.08333333333333333, 0.25, 0.5, 1, 2, 3, 5, 7, 10, 20, 30], "std_prev": [4.0977, 4.1859, 4.2544, 4.393, 4.7032, 4.803, 4.947, 5.076, 5.1982, 5.7544, 5.599], "std_day": [4.0879, 4.2055, 4.274, 4.4224, 4.7526, 4.842, 4.9755, 5.0936, 5.2165, 5.7593, 5.583], "chg_bp": [-0.98, 1.96, 1.96, 2.95, 4.95, 3.9, 2.85, 1.76, 1.82, 0.49, -1.6], "try": {"prev": "2026-10-09", "day": "2026-10-12", "tenors": ["3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "7Y", "10Y"], "years": [0.25, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0], "prev_vals": [36.0929, 37.4073, 39.0208, 39.6687, 38.6885, 37.2152, 35.7276, 33.2683, 30.8966], "day_vals": [36.5826, 37.5217, 38.7258, 39.3115, 38.6063, 37.403, 36.0919, 33.7375, 31.2484], "chg_bp": [48.97, 11.44, -29.5, -35.72, -8.22, 18.78, 36.43, 46.92, 35.18], "spread_pts": [32.287, 33.155, 34.204, 34.444, 33.645, 32.372, 30.991, 28.512, 25.893], "extrapolated": [false, false, false, false, false, false, false, false, true], "folders": ["try_curve_2026-10-09", "try_curve_2026-10-12"], "synthetic": false, "comp": "annual", "comp_label": "annually compounded"}}], "comp": "continuously compounded", "fx_label": "ECB euro reference rates (≈14:15 CET) via the Frankfurter API", "curve_label": "U.S. Treasury par curve (CMT), bootstrapped to zero rates", "news": {"window": "2026-10-08 to 2026-10-12", "summary": "", "source_note": "Collected automatically from Google News (20) out of 958 candidate headlines; ranked by topic keywords, closeness to the event day, outlet and how many sources carried the story. Notes are the articles' own descriptions.", "items": [{"date": "2026-10-12", "region": "US", "kind": "Political", "source": "The American Conservative", "via": "Google News", "title": "Iran War Day 227: Oil Prices Climb as Trump Mulls Joining Yemen War", "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPeE5YUzFZZTQ3bUptcUpfN0pLeGViV0FQNkRnQVltbTlZQXZNUTZiNGhMdU1sYl93M2V0TzU3a09zYV9JZnZ3OFREdlBrZ250SnlyaEpxdGhRYlBqYW5Ob0YtYXY3Rk9SdElQc3hWWmJaRUM0M3ZLc1NNbkxYUS05MU0xQ3EtdTh0T2ZBM0hfRllOeDdHZnFLUWc1ZjE0UWZQNWUzM2M2bDFzTjdx?oc=5", "why": "", "score": 7.0, "sim_up": 0.1048, "sim_down": 0.0721, "relevance": 0.1048, "lean": 0.0327, "matched": ["rise", "energy", "price", "energy price"], "rel_rank": 1, "selected": true}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "BigGo Finance", "via": "Google News", "title": "Morgan Stanley Strategist: Bond Market Has Already Done the Fed's \"Rate Hikes\" by 120 Basis Points — Two Key Signals to Watch for a U.S. Stock Rebound", "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE84cEhIOVhGODZMbV9zNnJ0Q2cxQlNGZnY5eDNwc2t4Z25CeVZYejk4Ukpta2N0OU5SeXZ5MEZRVEFURWltNkZQcXh1ZWEydFAtR1V4YmtBcWh4V1l6M2dHbDRySGo1aXByMUZacUpVYTNqUTRpY2c?oc=5", "why": "", "score": 7.0, "sim_up": 0.0878, "sim_down": 0.0832, "relevance": 0.0878, "lean": 0.0046, "matched": ["yield", "strengthen", "us", "hike"], "rel_rank": 2, "selected": true}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "MarketWatch", "via": "Google News", "title": "Fed officials want to hold off a rate hike this month. Will this week’s inflation data let them?", "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNMHFzTmdfSmlRTFY3Z21YT3NRQ2oxV0xwMVdtcmJVNDE3dXFKbTFPUW01dnlwVVJqUlRCY3ZrZEh0RE03MDU5QWsyampFdGVINDdPdEtXNnBjX0hOMlFuR2FRdGsyaDBrVkF3VENILU45WU9rS1luVi1LMXhVakhmSXhRc2JiU2JqQXpnZzVpOXFjRWozTnhzbDU0a1Vya2NVNXJXLTBBSnp1UEdfcW10eFRpekxrdXZCcXVxSjg2UmozWkRfNzlDY1FUOE1GT0FnWHc?oc=5", "why": "", "score": 7.0, "sim_up": 0.0764, "sim_down": 0.1002, "relevance": 0.0764, "lean": -0.0238, "matched": ["inflation", "hike", "us hike", "rate hike"], "rel_rank": 3, "selected": true}, {"date": "2026-10-12", "region": "Turkey", "kind": "Macro", "source": "Türkiye Today", "via": "Google News", "title": "Türkiye inflation falls below 30% after 58 months; rate cuts back in play", "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQTGZOLTA5dVIyeVlkYVJMd0h2ZWg2c0ZKWkZ6a2thakVtbjZvQVpxNlJDMTkxcnBLdjhIMmJYa09NSzE3NTNBRU9rYndaSjhWaV9LbmVuWnNnOXpnOGVmNzVoOVBKUDkxMU04b2dIa3g1NVRLZmtPZXQxMHdZYUExa2pSd2c4N0tuSVE5S1BnWnNDWXhVR3RzZlVnOE1TVUlVUks0ekRFWUZPVlBTZEJZZQ?oc=5", "why": "", "score": 6.5, "sim_up": 0.075, "sim_down": 0.1619, "relevance": 0.075, "lean": -0.0869, "matched": ["turkey", "cut", "inflation", "fall"], "rel_rank": 4, "selected": true}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "Investing.com Australia", "via": "Google News", "title": "Upcoming US CPI: Could inflation data shift Fed rate expectations? By Investing.com", "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPR1pkc2YwQTFtTHRDVlNHVjg4c19UVkYzbEFybno4dmttdGUtYXNHYm43MGtMUmJxSUVZbko5djFuZHRaUmtMRW1EN1ljTnk3MnBSQllkaEtiNDE1SHZmYlpCaGgzd2tuYktDaDVyUWY3OExKQlNuS3V6ejBOd3Bwa3F1d1IxRlVYTkxOeGc4cmRPVDRGVTFndk1JM3ZXRWtZYW5Cb1gyZWtBNGtqNnZhdU8wcTBQUQ?oc=5", "why": "", "score": 7.0, "sim_up": 0.0704, "sim_down": 0.0741, "relevance": 0.0704, "lean": -0.0037, "matched": ["inflation", "us", "expectation", "rate"], "rel_rank": 5, "selected": true}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "Moomoo", "via": "Google News", "title": "U.S. Treasury yields remain steady at elevated levels as the market awaits CPI data and remarks by Waller this week, betting that further rate hikes will be deferred until December.", "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWUZxUTFhcDBwMko1blhtSWtFa1Z5elVaSEJfU1dON0V1eC03dzlVMTdVVlo4YTctRkgxcHZuSXo1RGFxcUVpemJERWFVdUt6clJobHloeUdsWWdIcmtpRk4zMmZxeklxeTVtanNrLWxia0tJRUFMTFptajBhMS03VEczQ1IyX2c3QUJqWFp3V0dNWjFZVUxrcDR2VVVKS3V4UktmQg?oc=5", "why": "", "score": 8.0, "sim_up": 0.0687, "sim_down": 0.0847, "relevance": 0.0687, "lean": -0.016, "matched": ["yield", "us", "inflation", "hike"], "rel_rank": 6, "selected": false}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "BigGo Finance", "via": "Google News", "title": "Dollar firm as Fed rate-hike bets weigh on euro; pound little changed", "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1GNDVUZWF1WGoydjNBWlhIZ1dOckFVVDc3eVVRVllWZ1FweWNlbFFvY1Jqc2FpUnpQMjlybkxsUDBQa1ZyVTFuNlBWelpzRGFfekhvZUQxNEVCM3MzRGdndUk2M3pRZEwwb2VtNU9CYS1KOFhGZXc?oc=5", "why": "", "score": 7.0, "sim_up": 0.0668, "sim_down": 0.0623, "relevance": 0.0668, "lean": 0.0045, "matched": ["dollar", "hike", "us hike", "rate hike"], "rel_rank": 7, "selected": false}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "DailyCoin", "via": "Google News", "title": "US Economic Events This Week: CPI, PPI and Fed Speeches", "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFA2bHNLcFBTN0ZXbUFkS3liU3drU05RUGM2QlJpWkltODh6MU5Dc2l2eFRWUzlpN1U3cjFXZE45ZFZKem5sRmdrakZhZFl1Qmdxa2taYUM3T0lSWFBaU0VSUmpTNTZzLVYzelRyY0piYUUycFBibEhtekF3?oc=5", "why": "", "score": 7.0, "sim_up": 0.055, "sim_down": 0.057, "relevance": 0.055, "lean": -0.002, "matched": ["inflation", "us", "fed"], "rel_rank": 8, "selected": false}, {"date": "2026-10-12", "region": "Turkey", "kind": "Political", "source": "BGNES", "via": "Google News", "title": "Arrests, trials and a divided opposition: Who can stop Erdogan?", "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOOExQcWZYR2trZVhhamZZNVl0bng2UVFKY3N6MWd3QXI5bzBDbEkwTUkxWndyb21YYXpYd19hVTkzeTYxRzA4akpyOU9nZzduNUloOG9EcHVEZkk1d3lwU0hxY084NnJXbW94SWs3V3RQWHNrQ1VEZ2tQc0xSbFVELVpGb0t0ckxPQW5tX3gzdlp2MGhHdnc?oc=5", "why": "", "score": 6.0, "sim_up": 0.0504, "sim_down": 0.0, "relevance": 0.0504, "lean": 0.0504, "matched": ["opposition", "arrest"], "rel_rank": 9, "selected": false}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "BigGo Finance", "via": "Google News", "title": "Global Rate-Hike Wave Returns: Fed, ECB, and BOJ Likely to Hold Rates High into 2027", "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBNa2RlNy1LaGZ5TWlWS3FTYlEzNVRwUEF1YWdaQjRhUEZUNlRvbmluT2QxOEYtaFA1VUZvdk96b2VpSmJlb00wak16aUpRbjluNDNPTDhBNEdfNVpqejlqNDFuTWxkcElnU0tIbTFrck5zZjRiZXc?oc=5", "why": "", "score": 7.0, "sim_up": 0.0485, "sim_down": 0.072, "relevance": 0.0485, "lean": -0.0235, "matched": ["rate", "hike", "global", "rate hike"], "rel_rank": 10, "selected": false}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "Business Insider", "via": "Google News", "title": "The Walmart Recession Signal is hinting that a Fed rate cut is near", "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPYU1oRFJ4bHRuZkM2SmVjWnZxMTNHLWZVSktPd0RmaGVkelJCbWlEWVgyYzNjejVjMkUtRk4yb1V2UHpzeXpUMFJKT1ZpdHlqaDc5OThBMjBTZUlZengzQWxBRE5JMWZNQTN0ZGxFcTFZRkRWYk1IdENKbGtKNTZaR0VBb2l1c0FaallzYnhsM1plZEtKckNVVDlNT3BTbkxUcHo4?oc=5", "why": "", "score": 7.0, "sim_up": 0.0438, "sim_down": 0.0766, "relevance": 0.0438, "lean": -0.0328, "matched": ["cut", "signal", "rate", "fed"], "rel_rank": 11, "selected": false}, {"date": "2026-10-12", "region": "US", "kind": "Macro", "source": "The Korea Times", "via": "Google News", "title": "Early rate hike ahead of Fed's move minimized economic costs: BOK chief", "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSkRydzk0RHFMcUhIVDkxTlJldE9GLTFUanB5NWJLQTF0NTlwR3NDM1VLbHNTQ3JQMFJHZ25wV0Rud0FyWmF5TkhKT2JCazczd0VubGZORjFiU2FzTVp0bVNMcHptdGhxR0NmVUtXWllWaXNrN0JuTnhRTURPQVdnbmotd3dfcVM3cDdScXdxSld2T0tUOG53U05DOG13TW9DaWlibkxfMWR2THR0VzREcGF6bnowZ9IBuwFBVV95cUxQbmVUSzExUzBSV0hiNlkzRmFvX1Z6Z05ZQUlkcmJXNEpxWWpOVUJDRk40bThQTmRMcTNVYVZnMGdDbzI2YUFVVEl0R1d5OTBWU0pGX0xXOS1PS01aLWstMVVyWjhoNDg0b2dsLVNKUmlfeWFFODdPdWdaeV84R0YzMXZzWjctZUNVZlhXOE5EYzlMSG5hVGhSSWtYemNtWjBGb290bGJSZmNqVWFkbzJ2WWJ3RmZubVc0ZUM4?oc=5", "why": "", "score": 7.0, "sim_up": 0.0437, "sim_down": 0.0386, "relevance": 0.0437, "lean": 0.0051, "matched": ["hike", "us hike", "rate hike", "rate"], "rel_rank": 12, "selected": false}, {"date": "2026-10-08", "region": "Turkey", "kind": "Political", "source": "Facebook", "via": "Google News", "title": "DW News. . A hugely controversial defection in Turkey has handed control of the mayor's office in Izmir, an opposition stronghold, to President Erdogan's AKP. Mayor Cemil Tugay's switch, critics say, is part of Erdogan's push to tighten his grip on opposition-hel", "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQRlhONkNlWjlwNGtfR0Z1SWM2X1ZsSzNTWHBGdzNNQTgxZmFFakNIUXF0UWZGcjR2dWFkZXNucDdwc1VWT0toUEFMUDd1ZTFPcGxFaFYtbV9RaXNFVnBzbEVKaV9xTjRDWlVaT3poY2F4bDRkTGVFdVBxMFRKSE9fQTZMWlBlZHhDVnRLdlZFb1hDVEMtMm02aE1ZQktZWnAwQWZOeUljRnFQR1FDMi1yOE10UXdBeFdKTWJNdHJ5c1dkVEhTUXlubFBjTGM4cXBlUWVqclZTYnF4cWpqME1MNnFn?oc=5", "why": "", "score": 5.5, "sim_up": 0.0421, "sim_down": 0.0161, "relevance": 0.0421, "lean": 0.026, "matched": ["opposition", "turkey", "push", "hike"], "rel_rank": 13, "selected": false}, {"date": "2026-10-08", "region": "Turkey", "kind": "Political", "source": "Turkish Minute", "via": "Google News", "title": "Erdoğan’s party cuts ties with former minister implicated in fund scandal", "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMFR6bHZ0a3lwb292Qm9EUGtncW1NdVdiQjZzUzhiVkZTQ1RoSHBHRF8yNWI5cXhyWmRCVUQ2bmRVc1FkbWhDMjdqSVRuVlIwWjRUMUhrZC1vazBTMktXNFZId3JqQWNpaHk1T0tSNXZiYXl3YUN6OHFGbkV4SmxBVW1Wa2hONXlIX0RaQ0lUZUNPWk5ENnN3ZTkwZ2ZzNGhFVkVLMmFaajdlNDRDMTUyWGNZMzjSAboBQVVfeXFMT1FWREZfcmpEaE94UFpJU29qTnRFM2o2ZVlzUnpJUmljMWJuWDhVQ1o2ZkFyLVhZMUdYLXlZLW0ySzFUZ0RkWlZaZXhHRXpzb3NiWGJocWF0WFQ1QmZHTlNFRE0tb3d6dmp0QkhVZWIxMXlRRkJDaVNIbHFONUZQYzdUaVZnTGhNTzFaTmZGTU9xQzZNdHh5QVdXNkdOLVREdHg4T2FCSWwzU0ZRR1pkMjlrQVV1QWlYSVBR?oc=5", "why": "", "score": 6.0, "sim_up": 0.0364, "sim_down": 0.0198, "relevance": 0.0364, "lean": 0.0166, "matched": ["scandal", "cut"], "rel_rank": 14, "selected": false}, {"date": "2026-10-08", "region": "Turkey", "kind": "Political", "source": "Bianet", "via": "Google News", "title": "Opposition leader claims İzmir mayor joined Erdoğan’s party under jail threat", "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQeklOZ1Z5Mm84cFo0QjlTS2x2cnVFMHlsT0pXVDJ6dkxTR29KaHFySThqZ3lwSGs2YTFpZ3hfSlFjMXI1aGZNeUZLdEljSzhweVpLd2xqbTV4U3FxYnNObUUxQ1o1aDZNa1BnbDgwbkZJaG5LVGNyUGlOX2JPWFBnbmNDajBwZnJhaGN5cnl2UVlqVEkxbjRxNVc1YXByUno1a1hRT3NWQ040MGli?oc=5", "why": "", "score": 5.0, "sim_up": 0.0363, "sim_down": 0.0, "relevance": 0.0363, "lean": 0.0363, "matched": ["opposition", "arrest"], "rel_rank": 15, "selected": false}, {"date": "2026-10-12", "region": "Turkey", "kind": "Macro", "source": "Yahoo Finance", "via": "Google News", "title": "Türkiye Wealth Fund progresses consolidation of state participation banks", "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOMlVvYXB3T1VJVWlnbWFiSmVxOU5lUFpoTFJZVnRjb19DYnhoRG5JV3laaDJ4R29jeHVwNWFpeWxUSEVxUk9BazN1dk5aVWZpYjRBb2tyaWs3VXhPNWp1cHBmUU5kbERDbkRUc2RlbjVYU2MzSGZrNGhvajVkcHQzZ2VR?oc=5", "why": "", "score": 5.0, "sim_up": 0.0177, "sim_down": 0.0171, "relevance": 0.0177, "lean": 0.0006, "matched": ["turkey"], "rel_rank": 16, "selected": false}, {"date": "2026-10-12", "region": "Turkey", "kind": "Political", "source": "Middle East Online", "via": "Google News", "title": "Erdogan to submit Saudi defence pact to Turkish parliament after Houthi attacks", "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNN2t4VGpJWDZxdWNvNm5ZWlpKWE9YQkFNb21MSkhFeTFoRkpBWGwzWlROT2xyTk44c0E0TjEyTTV5OHlVMDlMQkg3M2Q4SkZ6cVZ6UHNxQlZoT0RmT05zSkZrYVZlUDRQUTZScVBOa1pnOXNVQjJ6OXBBT0EyUlpoRjBXd0lVd1Mzb1dCV1RpRlZNVDBabUxrdmVVYkVjdWJwcWg5UG45Z0lyaEk?oc=5", "why": "", "score": 5.0, "sim_up": 0.0171, "sim_down": 0.0165, "relevance": 0.0171, "lean": 0.0006, "matched": ["turkey"], "rel_rank": 17, "selected": false}, {"date": "2026-10-12", "region": "Turkey", "kind": "Political", "source": "NewsCord", "via": "Google News", "title": "Erdogan Says Turkey Will Submit Mecca Mutual Defense Agreement With Saudi Arabia, Pakistan To Parliament", "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQSVBXOW9FZm5Fb2ZDUkJEMVJENDVBUW1DWGViQmdGZVI0MHFTcHhqQVI1UW5aWnYtdGlwQ2RfYzlyT0VTQ2NfclcwTENUVjV3QmN6TzRhX084T3pEajROcFcxOFZhbDY0bFpSSlFjV0twR0pxeTJRVHE3ZDJoZUFxSXBlXzFuWGNTTFRxaDd0MERYbzBiSEI5bVAzbi1CcmhDNEkyc2FsZHhzTVdYbFNHMkptRE11N1JkSFdmLWdKYWRDWmptU3JxalJweHAzRzg?oc=5", "why": "", "score": 6.5, "sim_up": 0.0152, "sim_down": 0.0147, "relevance": 0.0152, "lean": 0.0005, "matched": ["turkey"], "rel_rank": 18, "selected": false}, {"date": "2026-10-12", "region": "Turkey", "kind": "Political", "source": "Daily Sabah", "via": "Google News", "title": "Ukraine looks to President Erdoğan for Putin talks", "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPNEd0cnU3TjlWVkZRRmtWelUxQ2RYcGRZNHhyOW9jZHFTWnZ5WDA2azFPMnQ3b3F0dk9tN0EwdUZyYnNkSHZXUHdrWExaRzNTRW82cEM1Q2wtZWJyY1I2YmlxMzBJTFBJalRnMWQ4QW1aZ1FlR0tQOFc5YnZEQjJvX2xDX2JmNjI4MEJVWFpiSmR5cng2QXkxRFNja20?oc=5", "why": "", "score": 5.0, "sim_up": 0.0, "sim_down": 0.0, "relevance": 0.0, "lean": 0.0, "matched": [], "rel_rank": 19, "selected": false}, {"date": "2026-10-12", "region": "Turkey", "kind": "Macro", "source": "Hürriyet Daily News", "via": "Google News", "title": "Erdoğan reaffirms October timetable for fund repayments", "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPSThOZHN2cHJUS1BMd2Vla3FRNU5NNjZCOWtCWDJYQmNtbldacHgxS05YYVRjelEyQWZTa1Zsd2g0dGFCLTM3OWV5T29WeF9LY19QUlBHZ2doWHNBdkg0SEZyU0M2Sk9GSU5feC1jTEJ3MGM4aVYzOTBGcHR4Z3I3eG1Ob2ZDakdNTlZ0WTRwcjRFZ1p4dlFDb2p1d1I?oc=5", "why": "", "score": 5.0, "sim_up": 0.0, "sim_down": 0.0, "relevance": 0.0, "lean": 0.0, "matched": [], "rel_rank": 20, "selected": false}], "relevance": {"direction": "up", "label": "Up day: USD/TRY rises, lira weakens", "top": 5, "method": "tokenizer + TF-IDF cosine", "prompt": "The Turkish lira weakens sharply against a stronger US dollar. In the United States, strong jobs data, hot inflation and a hawkish Federal Reserve raise expectations of an interest rate hike, pushing Treasury yields and the dollar higher and tightening global financial conditions. Oil and energy prices surge on Middle East conflict and supply disruption in the Strait of Hormuz, widening Turkey's energy import bill and current account deficit. In Turkey, political turmoil, arrests of opposition figures, court rulings against the opposition, calls for early elections, scandals and investor losses hit confidence. The Turkish central bank cuts rates or signals easing, sells foreign currency reserves to defend the lira, and foreign investors pull money out of Turkish bonds and stocks. Inflation rises, a rating agency downgrades Turkey, sanctions or diplomatic tensions with the United States escalate.", "event": "2026-10-12"}}};
+const $ = (id) => document.getElementById(id);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmtD = (s) => { const d = new Date(s + "T12:00:00Z"); return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }); };
+const fmtLong = (s) => { const d = new Date(s + "T12:00:00Z"); return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }); };
+const pc = (x, d = 3) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(d) + "%";
+const ord = (n) => { const r = Math.round(n); const s = ["th","st","nd","rd"], v = r % 100; return r + (s[(v - 20) % 10] || s[v] || s[0]); };
+const pLo = P.pct, pHi = 100 - P.pct;
+
+// ---------------- text
+$("eyebrow").textContent = `Week of ${fmtD(P.week_start)} – ${fmtD(P.week_end)} ${P.week_end.slice(0,4)} · generated ${P.generated}`;
+$("lede").textContent = `Each of the last ${P.rows.length} trading days' USD/TRY returns is ranked against the ${P.n_hist} daily returns before it. Days below the ${ord(pLo)} or above the ${ord(pHi)} percentile count as tail days. For those days, the US Treasury zero curve is compared with the previous US trading day.`;
+
+const ext = P.rows.reduce((a, b) => Math.abs(b.rank - 50) > Math.abs(a.rank - 50) ? b : a);
+if (P.flagged.length) {
+  const list = P.rows.filter(r => r.flag).map(r => `${fmtD(r.date)} (${pc(r.ret)})`).join(", ");
+  $("verdict").innerHTML = `<b>${P.flagged.length} of ${P.rows.length} days</b> fell outside last year's ${ord(pLo)}–${ord(pHi)} percentile band: ${list}.`;
+} else {
+  $("verdict").innerHTML = `<b>No day last week fell outside last year's ${ord(pLo)}–${ord(pHi)} percentile band.</b> The closest was ${fmtLong(ext.date)} at ${pc(ext.ret)}, the ${ord(ext.rank)} percentile, against a ${ord(pHi)} percentile of ${pc(P.hi)}.`;
+}
+const stats = [
+  ["Week's total move", pc(P.week_cum, 2), `USD/TRY ${P.rows[0].px.toFixed(3)} → ${P.rows[P.rows.length-1].px.toFixed(3)}`],
+  [`${ord(pLo)} percentile`, pc(P.lo), "last-year daily return"],
+  [`${ord(pHi)} percentile`, pc(P.hi), "last-year daily return"],
+  ["Last-year daily mean", pc(P.hist_mean), `σ ${P.hist_sd.toFixed(3)}%`],
+  ["Tail days", `${P.flagged.length} / ${P.rows.length}`, P.flagged.length ? "see table below" : "none flagged"],
+];
+$("stats").innerHTML = stats.map(([k, v, s]) => `<div class="stat"><span class="k">${k}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join("");
+$("weekSub").textContent = `Daily log returns of USD/TRY. The shaded band runs from the ${ord(pLo)} to the ${ord(pHi)} percentile of ${P.hist_start} – ${P.hist_end}. Positive means the lira weakened.`;
+$("histSub").textContent = `Distribution of the ${P.n_hist} daily returns from ${P.hist_start} to ${P.hist_end}, with last week's days marked above it. The cluster near +0.2% is mostly Fridays: the ECB fixing on a Friday carries the weekend's interest-rate differential, so Fridays sit high in the pooled distribution.`;
+
+// tables
+const pill = (f) => f ? `<span class="pill hot">${f === "high" ? "Above " + ord(pHi) : "Below " + ord(pLo)}</span>` : `<span class="pill">Inside band</span>`;
+$("weekTable").innerHTML = `<thead><tr><th>Date</th><th>USD/TRY</th><th>Return</th><th>Percentile, all days</th><th>Percentile, same weekday</th><th>Status</th></tr></thead><tbody>` +
+  P.rows.map(r => `<tr><td>${fmtD(r.date)} ${r.date.slice(0,4)}</td><td class="num">${r.px.toFixed(3)}</td><td class="num">${pc(r.ret)}</td><td class="num">${r.rank.toFixed(1)}</td><td class="num">${r.rank_wd.toFixed(1)} <span style="color:var(--ink-3)">(n=${r.n_wd})</span></td><td>${pill(r.flag)}</td></tr>`).join("") + `</tbody>`;
+
+const exRows = P.flagged.length ? P.rows.filter(r => r.flag) : (P.fallback ? [ext] : []);
+if (!P.flagged.length) {
+  $("excessNote").innerHTML = `<div class="note">No tail days last week. The table and curves below use the week's most extreme day, ${fmtLong(ext.date)}, so the rates comparison is still there. It is a near-miss, not a tail day.</div>`;
+}
+$("excessTable").innerHTML = exRows.length ? `<thead><tr><th>Date</th><th>Return</th><th>Threshold</th><th>Distance to threshold</th><th>Percentile</th><th>Status</th><th>Zero curves compared</th></tr></thead><tbody>` +
+  exRows.map(r => {
+    const thr = r.ret >= 0 ? P.hi : P.lo;
+    const c = P.curves.find(c => c.event === r.date);
+    return `<tr><td>${fmtD(r.date)} ${r.date.slice(0,4)}</td><td class="num">${pc(r.ret)}</td><td class="num">${pc(thr)}</td><td class="num">${((r.ret - thr) * 100).toFixed(1)} bp</td><td class="num">${r.rank.toFixed(1)}</td><td>${r.flag ? pill(r.flag) : '<span class="pill">Closest to band</span>'}</td><td class="mono">${c ? c.prev + " → " + c.day : "–"}</td></tr>`;
+  }).join("") + `</tbody>` : `<tbody><tr><td>No tail days in the week.</td></tr></tbody>`;
+
+
+// Turkish lira section (data from try_zero_curve.py folders)
+function trySection(c, i) {
+  const t = c.try, sgn = (v, d = 1) => (v > 0 ? "+" : "") + v.toFixed(d);
+  const head = t.tenors.map((tn, k) => `<th>${tn}${t.extrapolated[k] ? "*" : ""}</th>`).join("");
+  const col = (v) => `color:${v > 0 ? "var(--up)" : v < 0 ? "var(--down)" : "inherit"}`;
+  const big = t.chg_bp.reduce((m, v, k) => Math.abs(v) > Math.abs(m.v) ? { v, k } : m, { v: 0, k: 0 });
+  const k2 = t.tenors.indexOf("2Y"), k10 = t.tenors.indexOf("10Y");
+  return `
+  <section style="margin-top:40px">
+    <h2>Turkish lira zero curve: ${fmtD(t.prev)} vs ${fmtD(t.day)}</h2>
+    ${t.synthetic ? `<div class="note"><b>Synthetic test data.</b> At least one of these lira curves (${t.folders.join(", ")}) was generated for testing the workflow, not from market prices.</div>` : ""}
+    <p class="sub">Government zero rates fitted to Turkish Treasury bond prices (try_zero_curve.py, folders ${t.folders.join(" and ")}), ${t.comp_label || P.comp}${t.comp_label && t.comp_label !== P.comp ? `; for the TRY − USD spread the US curve is converted to the same compounding` : ""}.
+      The largest move was ${sgn(big.v)} bp at ${t.tenors[big.k]}${k2 >= 0 && k10 >= 0 ? `; 2Y ${sgn(t.chg_bp[k2])} bp, 10Y ${sgn(t.chg_bp[k10])} bp` : ""}.
+      ${t.extrapolated.some(Boolean) ? "Tenors marked * lie outside the maturities of the bonds and are extrapolated." : ""}</p>
+    <div class="legend">
+      <span><i class="sw dash" style="border-top-color:var(--s-prev)"></i>${fmtD(t.prev)} (previous day)</span>
+      <span><i class="sw line" style="background:var(--try)"></i>${fmtD(t.day)} (event day)</span>
+      <span><i class="sw" style="background:var(--up)"></i>Rate up</span>
+      <span><i class="sw" style="background:var(--down)"></i>Rate down</span>
+    </div>
+    <div class="grid2">
+      <div class="chart"><canvas id="tcurve${i}" aria-label="Turkish lira zero curves"></canvas></div>
+      <div class="chart"><canvas id="tchg${i}" aria-label="Daily change in lira zero rates, basis points"></canvas></div>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Tenor</th>${head}</tr></thead>
+      <tbody>
+        <tr><td>${fmtD(t.prev)}</td>${t.prev_vals.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>${fmtD(t.day)}</td>${t.day_vals.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>Δ (bp)</td>${t.chg_bp.map(v => `<td class="num" style="${col(v)}">${sgn(v)}</td>`).join("")}</tr>
+        <tr><td>TRY − USD, ${fmtD(t.day)} (pts)</td>${t.spread_pts.map(v => `<td class="num">${v.toFixed(2)}</td>`).join("")}</tr>
+      </tbody></table></div>
+  </section>`;
+}
+
+// curve sections
+$("curves").innerHTML = P.curves.map((c, i) => `
+  <section style="margin-top:${i ? 40 : 0}px">
+    <h2>US Treasury zero curve: ${fmtD(c.prev)} vs ${fmtD(c.day)}</h2>
+    <p class="sub">Zero rates from the ${P.curve_label || "U.S. Treasury par curve, bootstrapped"}, ${P.comp}. ${c.shifted ? `USD/TRY event day ${c.event} was not a US trading day, so ${c.day} is used. ` : ""}The lower panel shows the change from the previous US trading day at each standard tenor.</p>
+    <div class="legend">
+      <span><i class="sw line" style="background:var(--s-prev)"></i>${fmtD(c.prev)} (previous day)</span>
+      <span><i class="sw line" style="background:var(--s-main)"></i>${fmtD(c.day)} (event day)</span>
+      <span><i class="sw" style="background:var(--up)"></i>Rate up</span>
+      <span><i class="sw" style="background:var(--down)"></i>Rate down</span>
+    </div>
+    <div class="grid2">
+      <div class="chart"><canvas id="curve${i}" aria-label="Zero curves"></canvas></div>
+      <div class="chart"><canvas id="chg${i}" aria-label="Daily change in zero rates, basis points"></canvas></div>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Tenor</th>${c.tenors.map(t => `<th>${t}</th>`).join("")}</tr></thead>
+      <tbody>
+        <tr><td>${fmtD(c.prev)}</td>${c.std_prev.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>${fmtD(c.day)}</td>${c.std_day.map(v => `<td class="num">${v.toFixed(3)}</td>`).join("")}</tr>
+        <tr><td>Δ (bp)</td>${c.chg_bp.map(v => `<td class="num" style="color:${v > 0 ? "var(--up)" : v < 0 ? "var(--down)" : "inherit"}">${(v > 0 ? "+" : "") + v.toFixed(1)}</td>`).join("")}</tr>
+      </tbody></table></div>
+  </section>${c.try ? trySection(c, i) : ""}`).join("");
+
+
+if (P.news && P.news.items && P.news.items.length) {
+  const N = P.news, R = N.relevance; $("newsSec").hidden = false;
+  const esc = (x) => String(x).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const [w0, w1] = N.window.split(" to ");
+  const maxRel = Math.max(...N.items.map(n => n.relevance || 0), 1e-9);
+  const li = (n) => `<li><span class="d">${fmtD(n.date)}</span><div class="body">
+      <a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>
+      ${n.why ? `<span class="why">${esc(n.why)}</span>` : ""}
+      <span class="meta"><span class="tag ${n.region === "US" ? "us" : "tr"}">${esc(n.region)}</span>${n.kind ? `<span class="tag">${esc(n.kind)}</span>` : ""}${esc(n.source)}
+        ${R ? `<span class="rel" title="Similarity to the up-day prompt ${n.sim_up.toFixed(3)}, down-day prompt ${n.sim_down.toFixed(3)}"><span class="rk">#${n.rel_rank}</span><span class="bar"><i style="width:${Math.max(4, 100 * (n.relevance || 0) / maxRel).toFixed(0)}%"></i></span>${(n.relevance || 0).toFixed(3)}</span>` : ""}</span>
+      ${R && n.matched && n.matched.length ? `<span class="terms">Matched: ${n.matched.map(esc).join(", ")}</span>` : ""}
+    </div></li>`;
+  if (R) {
+    const top = N.items.filter(n => n.selected), rest = N.items.filter(n => !n.selected);
+    $("newsSub").innerHTML = `The ${top.length} headlines from ${fmtD(w0)} to ${fmtD(w1)} that best match the <b>${esc(R.label)}</b> prompt, ranked by similarity (${esc(R.method)}). ${rest.length ? `${rest.length} other collected headlines are listed underneath.` : ""} ${esc(N.summary || "")}`;
+    $("newsSub").insertAdjacentHTML("afterend", `<details class="more"><summary>Show the ${R.direction}-day prompt the headlines were compared with</summary><p class="promptq">${esc(R.prompt)}</p></details>`);
+    $("newsList").innerHTML = top.map(li).join("");
+    if (rest.length) {
+      $("newsMoreBox").hidden = false;
+      $("newsMoreSum").textContent = `Show the other ${rest.length} collected headlines`;
+      $("newsMore").innerHTML = rest.map(li).join("");
+    }
+  } else {
+    $("newsSub").textContent = `Top ${N.items.length} US and Turkey macro and political stories from ${fmtD(w0)} to ${fmtD(w1)}, newest first. ${N.summary || ""}`;
+    const items = [...N.items].sort((a, b) => b.date.localeCompare(a.date) || (a.region === "US" ? -1 : 1));
+    $("newsList").innerHTML = items.map(li).join("");
+  }
+  const nY = N.items.filter(n => n.via === "Yahoo").length;
+  $("newsSrc").textContent = N.source_note || `${nY} of ${N.items.length} stories were found on Yahoo Finance and News; the rest came from general web search, because Google News does not allow automated access. One-line notes are summaries, not quotes.`;
+}
+
+$("method").innerHTML = [
+  `<p><b>FX data.</b> USD/TRY from ${P.fx_label || "ECB euro reference rates (≈14:15 CET) via the Frankfurter API"}. Returns are daily log returns in percent. "Last week" is the last ${P.rows.length} published fixings; "last year" is the ${P.n_hist} returns before them. The percentile rank is the share of last-year returns at or below the day's return.</p>`,
+  (P.curve_label || "").startsWith("Federal") ? `<p><b>Rates data.</b> Federal Reserve Gürkaynak–Sack–Wright curve: daily Nelson–Siegel–Svensson parameters evaluated as continuously compounded zero rates. Published with a lag of several days; less reliable below about 1Y.</p>` : `<p><b>Rates data.</b> U.S. Treasury Daily Par Yield Curve (CMT, end of day New York). Bills up to 6M are treated as zero-coupon; the par curve is interpolated (PCHIP) onto a semi-annual grid and discount factors are bootstrapped out to 30Y.</p>`,
+  ...(P.curves.some(c => c.try) ? [`<p><b>Turkish lira curve.</b> Zero rates from try_zero_curve.py: a Nelson–Siegel curve fitted to the day's Turkish Treasury bond prices (fixed-coupon bonds and discounted bills; 182-day coupon periods). The report reads the event day's folder and the previous day's, shows the lira rates ${(P.curves.find(c => c.try) || {}).try?.comp_label || "annually compounded"}, and computes the TRY − USD spread on the event day after converting the US curve to the same compounding.</p>`] : []),
+  `<p><b>Timing.</b> The ECB fixing is taken before the US session opens, so a US curve move on the same date can follow the FX move rather than drive it. USD/TRY has a strong managed upward drift, so the band sits mostly above zero; the same-weekday column ranks each day only against the same weekday of last year.</p>`,
+].join("");
+
+// ---------------- charts
+const charts = [];
+function base() {
+  Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = css("--ink-2");
+  Chart.defaults.borderColor = css("--grid");
+}
+const tip = () => ({ backgroundColor: css("--panel"), titleColor: css("--ink"), bodyColor: css("--ink-2"), borderColor: css("--rule"), borderWidth: 1, padding: 10, displayColors: false });
+
+// draws dashed vertical lines and labels (histogram percentiles)
+const vlines = {
+  id: "vlines",
+  afterDatasetsDraw(ch, _a, o) {
+    if (!o || !o.lines) return;
+    const { ctx, chartArea: ca, scales: { x } } = ch;
+    ctx.save();
+    o.lines.forEach(l => {
+      const px = x.getPixelForValue(l.v);
+      ctx.strokeStyle = css("--ink-3"); ctx.setLineDash([4, 4]); ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(px, ca.top); ctx.lineTo(px, ca.bottom); ctx.stroke();
+      ctx.setLineDash([]); ctx.fillStyle = css("--ink-2"); ctx.font = `11px ${Chart.defaults.font.family}`;
+      ctx.textAlign = l.align || "left"; ctx.fillText(l.t, px + (l.align === "right" ? -5 : 5), ca.top + 12);
+    });
+    ctx.restore();
+  }
+};
+// value labels above/below bars
+const barLabels = {
+  id: "barLabels",
+  afterDatasetsDraw(ch, _a, o) {
+    if (!o || !o.on) return;
+    const { ctx } = ch; const meta = ch.getDatasetMeta(o.ds ?? 0); const data = ch.data.datasets[o.ds ?? 0].data;
+    ctx.save(); ctx.fillStyle = css("--ink"); ctx.font = `500 ${ch.width < 420 ? 9 : 11}px ${getComputedStyle(document.body).fontFamily}`; ctx.textAlign = "center";
+    meta.data.forEach((b, i) => { const v = data[i]; if (v == null) return; ctx.fillText(o.fmt(v), b.x, v >= 0 ? b.y - 6 : b.y + 14); });
+    ctx.restore();
+  }
+};
+
+function draw() {
+  charts.splice(0).forEach(c => c.destroy());
+  base();
+  const up = css("--up"), main = css("--s-main"), band = css("--band"), ink3 = css("--ink-3");
+
+  // 1) week bars with band
+  const labels = P.rows.map(r => { const [wd, ...rest] = fmtD(r.date).replace(',', '').split(' '); return [wd, rest.join(' ')]; });
+  const vals = P.rows.map(r => r.ret);
+  const ymax = Math.max(P.hi, ...vals) * 1.25, ymin = Math.min(P.lo, ...vals, 0) - 0.03;
+  charts.push(new Chart($("weekChart"), {
+    data: { labels, datasets: [
+      { type: "bar", label: "Return", data: vals, backgroundColor: P.rows.map(r => r.flag ? up : main), borderRadius: 4, borderSkipped: "start", maxBarThickness: 46, order: 1 },
+      { type: "line", label: "p" + pLo, data: labels.map(() => P.lo), borderColor: ink3, borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, order: 2 },
+      { type: "line", label: "p" + pHi, data: labels.map(() => P.hi), borderColor: ink3, borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, fill: "-1", backgroundColor: band, order: 2 },
+    ]},
+    options: { maintainAspectRatio: false, layout: { padding: { top: 8 } },
+      scales: { y: { min: ymin, max: ymax, ticks: { callback: v => v.toFixed(2) + "%" }, grid: { color: css("--grid") } }, x: { grid: { display: false }, ticks: { maxRotation: 0 } } },
+      plugins: { legend: { display: false }, tooltip: { ...tip(), filter: i => i.datasetIndex === 0, callbacks: {
+        title: (it) => P.rows[it[0].dataIndex].date + " · " + P.rows[it[0].dataIndex].dow,
+        label: (it) => { const r = P.rows[it.dataIndex]; return [`Return ${pc(r.ret)}`, `${ord(r.rank)} percentile of last year`, `USD/TRY ${r.px.toFixed(3)}`]; } } },
+        barLabels: { on: true, fmt: v => pc(v, 3) } } },
+    plugins: [barLabels, { id: "bandLbl", afterDatasetsDraw(ch) {
+      const { ctx, chartArea: ca, scales: { y } } = ch; ctx.save(); ctx.fillStyle = css("--ink-2"); ctx.font = `11px ${Chart.defaults.font.family}`; ctx.textAlign = "left";
+      ctx.fillText(`${ord(pHi)} pct ${pc(P.hi)}`, ca.left + 4, y.getPixelForValue(P.hi) - 5);
+      ctx.fillText(`${ord(pLo)} pct ${pc(P.lo)}`, ca.left + 4, y.getPixelForValue(P.lo) + 13); ctx.restore(); } }]
+  }));
+
+  // 2) histogram + week markers
+  const maxC = Math.max(...P.hist_bins.map(b => b[1]));
+  const wkPts = P.rows.map(r => ({ x: r.ret, y: maxC * 1.12, r }));
+  const xs = P.hist_bins.map(b => b[0]);
+  charts.push(new Chart($("histChart"), {
+    data: { datasets: [
+      { type: "bar", data: P.hist_bins.map(b => ({ x: b[0], y: b[1] })), backgroundColor: css("--s-hist"), barPercentage: 1, categoryPercentage: 1, borderRadius: 2, grouped: false },
+      { type: "scatter", data: wkPts, backgroundColor: wkPts.map(p => p.r.flag ? up : main), borderColor: css("--panel"), borderWidth: 2, pointRadius: 6, pointHoverRadius: 8 },
+    ]},
+    options: { maintainAspectRatio: false, layout: { padding: { top: 6 } },
+      scales: { x: { type: "linear", min: Math.min(xs[0], ...P.rows.map(r => r.ret)) - P.bin_w, max: Math.max(xs[xs.length-1], ...P.rows.map(r => r.ret)) + P.bin_w, ticks: { callback: v => v.toFixed(2) + "%" }, grid: { display: false } },
+                y: { max: Math.ceil(maxC * 1.25), title: { display: true, text: "days", color: css("--ink-3") }, grid: { color: css("--grid") } } },
+      plugins: { legend: { display: false }, vlines: { lines: [{ v: P.lo, t: ord(pLo), align: "right" }, { v: P.hi, t: ord(pHi) }] },
+        tooltip: { ...tip(), callbacks: {
+          title: (it) => it[0].datasetIndex === 1 ? wkPts[it[0].dataIndex].r.date : `${pc(it[0].raw.x - P.bin_w/2)} to ${pc(it[0].raw.x + P.bin_w/2)}`,
+          label: (it) => it.datasetIndex === 1 ? [`Return ${pc(wkPts[it.dataIndex].r.ret)}`, `${ord(wkPts[it.dataIndex].r.rank)} percentile`] : `${it.raw.y} days` } } } },
+    plugins: [vlines]
+  }));
+
+  // 3) curves
+  P.curves.forEach((c, i) => {
+    const std = new Set(c.std_t.map(t => +t.toFixed(4)));
+    const ptR = (ctx) => std.has(+ctx.raw.x.toFixed(4)) ? 3.5 : 0;
+    charts.push(new Chart($("curve" + i), {
+      type: "line",
+      data: { datasets: [
+        { label: c.prev, data: c.curve_prev.map(([x, y]) => ({ x, y })), borderColor: css("--s-prev"), backgroundColor: css("--s-prev"), borderWidth: 2, pointRadius: ptR, tension: 0 },
+        { label: c.day, data: c.curve_day.map(([x, y]) => ({ x, y })), borderColor: main, backgroundColor: main, borderWidth: 2, pointRadius: ptR, tension: 0 },
+      ]},
+      options: { maintainAspectRatio: false, interaction: { mode: "nearest", axis: "x", intersect: false },
+        scales: { x: { type: "logarithmic", min: 1/12, max: 30, afterBuildTicks: (ax) => { ax.ticks = c.std_t.map(v => ({ value: v })); },
+                       ticks: { callback: (v) => { const k = c.std_t.findIndex(t => Math.abs(t - v) < 1e-6); if (k < 0) return ""; const narrow = $("curve" + i).parentNode.clientWidth < 480; return (!narrow || ["1M","6M","1Y","2Y","5Y","10Y","30Y"].includes(c.tenors[k])) ? c.tenors[k] : ""; }, autoSkip: false, maxRotation: 0 }, grid: { color: css("--grid") } },
+                  y: { ticks: { callback: v => v.toFixed(2) + "%" }, grid: { color: css("--grid") } } },
+        plugins: { legend: { display: false }, tooltip: { ...tip(), displayColors: true, callbacks: {
+          title: (it) => { const t = it[0].raw.x; return t < 1 ? `${Math.round(t * 12)}M` : `${+t.toFixed(2)}Y`; },
+          label: (it) => `${it.dataset.label}: ${it.raw.y.toFixed(3)}%` } } } }
+    }));
+    charts.push(new Chart($("chg" + i), {
+      type: "bar",
+      data: { labels: c.tenors, datasets: [{ data: c.chg_bp, backgroundColor: c.chg_bp.map(v => v >= 0 ? up : css("--down")), borderRadius: 4, borderSkipped: "start", maxBarThickness: 22 }] },
+      options: { indexAxis: "x", maintainAspectRatio: false, layout: { padding: { top: 16, bottom: 4 } },
+        scales: { y: { ticks: { callback: v => v + " bp" }, grid: { color: css("--grid") }, grace: "15%" }, x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 10 } } } },
+        plugins: { legend: { display: false }, title: { display: true, text: "Daily change (bp)", align: "start", color: css("--ink-2"), font: { weight: 500 } },
+          tooltip: { ...tip(), callbacks: { label: (it) => `${(it.raw > 0 ? "+" : "") + it.raw.toFixed(1)} bp` } },
+          barLabels: { on: true, fmt: v => (v > 0 ? "+" : "") + v.toFixed(1) } } },
+      plugins: [barLabels]
+    }));
+    if (!c.try) return;
+    const t = c.try, tc = css("--try");
+    const lbl = t.tenors.map((tn, k) => tn + (t.extrapolated[k] ? "*" : ""));
+    charts.push(new Chart($("tcurve" + i), {
+      type: "line",
+      data: { labels: lbl, datasets: [
+        { label: t.day, data: t.day_vals, borderColor: tc, backgroundColor: tc, borderWidth: 2.5, pointRadius: 3.5, tension: 0.25, order: 0 },
+        { label: t.prev, data: t.prev_vals, borderColor: css("--s-prev"), backgroundColor: css("--s-prev"), borderWidth: 2, borderDash: [5, 4], pointRadius: 2.5, tension: 0.25, order: 1 },
+      ]},
+      options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
+        scales: { x: { grid: { color: css("--grid") }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 11 } } },
+                  y: { ticks: { callback: v => v.toFixed(1) + "%" }, grid: { color: css("--grid") } } },
+        plugins: { legend: { display: false }, tooltip: { ...tip(), displayColors: true, callbacks: {
+          label: (it) => `${it.dataset.label}: ${it.raw.toFixed(3)}%`,
+          afterBody: (it) => `TRY − USD on ${t.day}: ${t.spread_pts[it[0].dataIndex].toFixed(2)} pts` } } } }
+    }));
+    charts.push(new Chart($("tchg" + i), {
+      type: "bar",
+      data: { labels: lbl, datasets: [{ data: t.chg_bp, backgroundColor: t.chg_bp.map(v => v >= 0 ? up : css("--down")), borderRadius: 4, borderSkipped: "start", maxBarThickness: 22 }] },
+      options: { maintainAspectRatio: false, layout: { padding: { top: 16, bottom: 4 } },
+        scales: { y: { ticks: { callback: v => v + " bp" }, grid: { color: css("--grid") }, grace: "15%" }, x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 10 } } } },
+        plugins: { legend: { display: false }, title: { display: true, text: "Daily change (bp)", align: "start", color: css("--ink-2"), font: { weight: 500 } },
+          tooltip: { ...tip(), callbacks: { label: (it) => `${(it.raw > 0 ? "+" : "") + it.raw.toFixed(1)} bp` } },
+          barLabels: { on: true, fmt: v => (v > 0 ? "+" : "") + v.toFixed(1) } } },
+      plugins: [barLabels]
+    }));
+  });
+}
+
+function start() { if (window.Chart) draw(); }
+start();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", start);
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(start, 200); });
+new MutationObserver(start).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+
+<section class="dl" aria-labelledby="dl-h"><h2 id="dl-h">Charts and data</h2><div class=thumbs><a href="returns_histogram.png" aria-label="Chart: distribution of last year&#x27;s daily returns"><img src="returns_histogram.png" alt="Chart: distribution of last year&#x27;s daily returns"></a><a href="try_zero_curve_2026-10-12.png" aria-label="try_zero_curve_2026-10-12.png"><img src="try_zero_curve_2026-10-12.png" alt="try_zero_curve_2026-10-12.png"></a><a href="week_returns.png" aria-label="Chart: last week&#x27;s returns vs last year&#x27;s band"><img src="week_returns.png" alt="Chart: last week&#x27;s returns vs last year&#x27;s band"></a><a href="zero_curve_2026-10-09.png" aria-label="Chart: US zero curve on 2026-10-09 vs previous day"><img src="zero_curve_2026-10-09.png" alt="Chart: US zero curve on 2026-10-09 vs previous day"></a></div><ul><li><a href="returns_histogram.png" download>returns_histogram.png</a><span>Chart: distribution of last year&#x27;s daily returns · 30.9 KB</span></li><li><a href="try_zero_curve_2026-10-12.png" download>try_zero_curve_2026-10-12.png</a><span> · 93.8 KB</span></li><li><a href="week_returns.png" download>week_returns.png</a><span>Chart: last week&#x27;s returns vs last year&#x27;s band · 40.1 KB</span></li><li><a href="zero_curve_2026-10-09.png" download>zero_curve_2026-10-09.png</a><span>Chart: US zero curve on 2026-10-09 vs previous day · 75.1 KB</span></li><li><a href="last_week.csv" download>last_week.csv</a><span>Last week: returns, percentile ranks, tail flags · 427 B</span></li><li><a href="news.json" download>news.json</a><span>Headlines with links, as shown in the report · 17.6 KB</span></li><li><a href="try_zero_curve_2026-10-12.csv" download>try_zero_curve_2026-10-12.csv</a><span> · 455 B</span></li><li><a href="usdtry.csv" download>usdtry.csv</a><span>USD/TRY rates and daily log returns · 11.3 KB</span></li><li><a href="zero_curve_2026-10-09.csv" download>zero_curve_2026-10-09.csv</a><span>Data: US zero curve on 2026-10-09 vs previous day · 345 B</span></li></ul></section>
+</body></html>
