@@ -333,6 +333,33 @@ def split_report_body(body: str):
 PREVIEW = "preview.png"            # 1200x630, the size Open Graph / X / LinkedIn / WhatsApp expect
 
 
+PREVIEW_SOURCE = "week_returns.png"   # chart made by usdtry_report.py, used as the share-card image
+
+
+def preview_from_week_chart(src: Path, path: Path, size=(1200, 630)):
+    """Fit week_returns.png onto a white 1200x630 canvas (the share-card size) without cropping."""
+    from PIL import Image
+    W, H = size
+    with Image.open(src) as im:
+        im = im.convert("RGB")
+        scale = min(W / im.width, H / im.height)
+        im = im.resize((max(1, round(im.width * scale)), max(1, round(im.height * scale))), Image.LANCZOS)
+        canvas = Image.new("RGB", (W, H), "white")
+        canvas.paste(im, ((W - im.width) // 2, (H - im.height) // 2))
+        canvas.save(path, optimize=True)
+
+
+def make_preview(rep, out_dir: Path, site_title: str):
+    """Share-card image for a report: its week_returns.png; older folders without one get the
+    generated zero-curve preview instead. Returns which source was used."""
+    src = rep["folder"] / PREVIEW_SOURCE
+    if src.exists():
+        preview_from_week_chart(src, out_dir / PREVIEW)
+        return "week"
+    preview_image(rep["P"], rep["meta"], out_dir / PREVIEW, site_title)
+    return "curve" if rep["meta"]["curve_day"] else "week"
+
+
 def preview_image(P, m, path: Path, site_title: str):
     """Share-card image: the event day's zero curves vs the previous day, with the change in bp.
     Weeks without curve data get the week's returns against last year's band instead."""
@@ -432,7 +459,8 @@ def report_page(rep, prev_rep, next_rep, files, site_title, base_url):
     canon = f'<link rel="canonical" href="{E(base_url)}reports/{m["slug"]}/">' if base_url else ""
     desc = E(m["verdict"])
     alt = (f"US Treasury zero curves {m['curve_prev']} vs {m['curve_day']} with daily change in basis points"
-           if m["curve_day"] else f"USD/TRY daily returns for the week to {m['week_end']}")
+           if rep.get("preview_kind") == "curve"
+           else f"USD/TRY daily returns for the week to {m['week_end']} against last year's percentile band")
     has_preview = bool(files) and (files[0].parent / PREVIEW).exists()
     share = (share_tags(title, desc, f"reports/{m['slug']}/", f"reports/{m['slug']}/{PREVIEW}", alt, base_url)
              if has_preview else f'<meta property="og:title" content="{E(title)}">')
@@ -478,7 +506,7 @@ def index_page(reports, site_title, base_url, built):
     metas = [r["meta"] for r in reports]
     canon = f'<link rel="canonical" href="{E(base_url)}">' if base_url else ""
     home_share = (share_tags(site_title, "Weekly USD/TRY tail-day reports with US Treasury zero curves and US/Turkey headlines.",
-                             "", f"reports/{metas[0]['slug']}/{PREVIEW}", "Latest report: US Treasury zero curves", base_url)
+                             "", f"reports/{metas[0]['slug']}/{PREVIEW}", "Latest report: USD/TRY daily returns against last year's band", base_url)
                   if metas else f'<meta property="og:title" content="{E(site_title)}">')
     years = sorted({m["year"] for m in metas}, reverse=True)
     n_tail_weeks = sum(1 for m in metas if m["n_tail"])
@@ -672,7 +700,7 @@ def build(src: Path, out: Path, pattern: str, site_title: str, base_url: str):
                 shutil.copy2(f, d / f.name)
                 files.append(d / f.name)
         try:
-            preview_image(rep["P"], rep["meta"], d / PREVIEW, site_title)
+            rep["preview_kind"] = make_preview(rep, d, site_title)
         except Exception as ex:                       # a missing preview must never break the build
             print(f"  preview image failed for {rep['meta']['slug']}: {type(ex).__name__}: {ex}")
         newer = reports[i - 1] if i > 0 else None

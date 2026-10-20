@@ -29,7 +29,10 @@ WANTED_COLUMNS = [
     "Yıllık Kupon Sıklığı\nCoupons Frequency",
     "İtfa Tarihi\nMaturity Date",
     "Sonraki Kupon Oranı %\nNext Coupon Rate %",
+    "Para Birimi\nCurrency",
 ]
+
+CURRENCY_COL = "Para Birimi\nCurrency"
 
 HEADER_MARKER = "ISIN Kodu"  # used to locate the header row if it isn't the first row
 
@@ -184,6 +187,14 @@ def main() -> int:
     # Processing
     # ------------------------------------------------------------------
     try:
+        # 0) Keep only TRY-denominated securities, then drop the currency column
+        is_try = tbliste[CURRENCY_COL].map(lambda v: "TRY" in normalise(v).upper())
+        if not is_try.any():
+            found = sorted({normalise(v) for v in tbliste[CURRENCY_COL] if normalise(v)})
+            raise ValueError(f"No TRY rows. Currencies in file: {found}")
+        tbliste = tbliste[is_try].drop(columns=[CURRENCY_COL]).reset_index(drop=True)
+        print(f"TRY securities: {len(tbliste)} rows")
+
         # 1) Keep only Turkish Treasury issues
         tbliste = keep_treasury(tbliste)
         print(f"Treasury issues: {len(tbliste)} rows")
