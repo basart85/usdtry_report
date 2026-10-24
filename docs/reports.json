@@ -1,7 +1,57 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-10-18 23:05",
+ "built": "2026-10-24 18:46",
  "reports": [
+  {
+   "slug": "2026-10-23",
+   "week_start": "2026-10-19",
+   "week_end": "2026-10-23",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 0,
+   "tail_dates": [],
+   "ext_date": "2026-10-23",
+   "ext_ret": 0.2214037898972787,
+   "ext_rank": 89.28571428571429,
+   "ext_flag": "",
+   "week_cum": 0.42512530657567993,
+   "px_start": 49.553,
+   "px_end": 49.738,
+   "lo": -0.03778307892126964,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": true,
+   "curve_day": "2026-10-23",
+   "curve_prev": "2026-10-22",
+   "chg_2y": 3.94,
+   "chg_10y": 4.08,
+   "chg_30y": 3.05,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Surging oil prices have reinforced expectations of Federal Reserve rate hikes, pushing gold below key support levels to hit a two-month low.",
+     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPbjM2UnBucmJUWm9wM0EtSU5HQU1yTkhfYzVCcGtxUTA4RkhoZ3RwdXZYWG9OT2FUaXRzQ1pCTm5FdS1BLTliTFNUTDRZTVNzdmlnblgxdGgybUlVQ1Zkb1gyR2dZMkg4M1ZrVWJpZkczM2NuSlZ0czFnYmtnbWlLNHlyMFFaYi0xNHBJM1VtQ0RSQ2FaZTFEWXNPa1lxMnBlUktCb2o4WEtaWTlDMnp6cU9oR0haZw?oc=5",
+     "region": "US",
+     "date": "2026-10-23"
+    },
+    {
+     "title": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOWE1LcUgzRWRwVDZmX3FEaWszVHF0cFQ1ekt6M1pyQ0lfc05PQm9DekdZcXprdm1vQk00SlNEZjEwQllCd1VwMUJySnIxcF9ZblFaRHFsV3BzSU52SlJSSi1TeWxoTmdYc1h6UHhPQTFQYU41ZEdQTFRNY3l0N1Q2bnRDV2x1MjlveGtxTk1oQWlGd3ExcUZEd2QzdF9TUkVKcXotUlIycUgtb1RrZjJ3?oc=5",
+     "region": "US",
+     "date": "2026-10-23"
+    },
+    {
+     "title": "Update: US Equity Indexes Fall, Treasury Yields Jump as Iran Tensions Send Crude Oil Sharply Higher",
+     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPUnBLdjNCNWY1d3JpSVF0eUh1WG9DMHhsV1VndlZMd2JZRTEzdVd0NWV2Rk15TDNZY2xrb3JEc09zZkQ1MlhtRXM5V05HRWZOa3ZFZGFYUUczU3MzMkU4aFdLZEhYY1NHMG4xZ0VkTjdqZ1ZCZTlnN0tuMmlpVm1rcm4wR2lGMVU?oc=5",
+     "region": "US",
+     "date": "2026-10-23"
+    }
+   ],
+   "direction": "up",
+   "verdict": "No tail days. The largest move was Fri 23 Oct at +0.221%, the 89th percentile, against a 95th percentile of +0.237%.",
+   "generated": "2026-10-24 18:44",
+   "url": "reports/2026-10-23/index.html"
+  },
   {
    "slug": "2026-10-16",
    "week_start": "2026-10-12",
