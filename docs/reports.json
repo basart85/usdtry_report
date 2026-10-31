@@ -1,7 +1,57 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-10-24 18:46",
+ "built": "2026-11-01 01:26",
  "reports": [
+  {
+   "slug": "2026-10-30",
+   "week_start": "2026-10-26",
+   "week_end": "2026-10-30",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 0,
+   "tail_dates": [],
+   "ext_date": "2026-10-30",
+   "ext_ret": 0.22247842017213415,
+   "ext_rank": 89.68253968253968,
+   "ext_flag": "",
+   "week_cum": 0.4213235773300461,
+   "px_start": 49.763,
+   "px_end": 49.948,
+   "lo": -0.0319286772129157,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": true,
+   "curve_day": "2026-10-30",
+   "curve_prev": "2026-10-29",
+   "chg_2y": -4.89,
+   "chg_10y": -3.32,
+   "chg_30y": -0.13,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Turkey central bank flags upside inflation risks a week after rate cut",
+     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNbGpPUEpaTnVaQVBDZmJNRnVTNXpXSUhHY0ZxWkoxbWgxQ0N6aHg4MjI3T1JoRWVDcjNqdDdxeUphcHUtdl91cWNfZ0NQWGowMEFiRWVtSTN0Smp2NFFVTHZVdVktYVhfbUN1dUl4XzM2TnNQTW9UbExSNlRjbWxMUEU4YkZBaFJvN24yY0xnRDZpNGdYVS1wdEhxWmxiMFRvemxJWDdoQk9yT0pRcGE3UkdYVHg3TWpCWHR5S0trelhWbE5YV1pxNzFpdFVYekNQR1BtSjhQVQ?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-30"
+    },
+    {
+     "title": "During the fund liquidation process, an interim payment of 29.3 billion Turkish lira was deposited into accounts.",
+     "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOTWwxUzJyR1M3S1hWOWdSRVNPSEZlVjNCUWl5UGxrM1IxM3R6NUd2UDJvd0puaUlmazJLVi1weTIwaEMxazZJRUNNTGpSa3gxQnlpZnFDMVVxQ0JhSXN1SF9DMTRSSUhxcVFxOWpFeDBxUzNQQTh6dGl3WkdvN1pTVFMybDlZdw?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-30"
+    },
+    {
+     "title": "Türkiye's economic confidence index falls 3.9% in October",
+     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPWUgyXzBaWHVVb1hlbG5rckNXNll1Tlo3c0NmanhTclk0ZkxpYXB2TFlsWUlaNUJFVU9vWkpxTU1kbHpOOUNLLUtvMUNZUVlqbk55ZmlyTm82TXJaWm53OXB1Q01BMWUyMTZRRXpRdnFnUHRETlRtRkVIb05TODNGQjFoVGJWeU5EXzhKS3lWSjM3WEJnUFN4TGlLSQ?oc=5",
+     "region": "Turkey",
+     "date": "2026-10-30"
+    }
+   ],
+   "direction": "up",
+   "verdict": "No tail days. The largest move was Fri 30 Oct at +0.222%, the 90th percentile, against a 95th percentile of +0.237%.",
+   "generated": "2026-11-01 01:26",
+   "url": "reports/2026-10-30/index.html"
+  },
   {
    "slug": "2026-10-23",
    "week_start": "2026-10-19",
