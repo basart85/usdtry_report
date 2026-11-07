@@ -1,7 +1,57 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-11-01 01:26",
+ "built": "2026-11-07 09:45",
  "reports": [
+  {
+   "slug": "2026-11-06",
+   "week_start": "2026-11-02",
+   "week_end": "2026-11-06",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 0,
+   "tail_dates": [],
+   "ext_date": "2026-11-06",
+   "ext_ret": 0.21157692523399163,
+   "ext_rank": 87.6984126984127,
+   "ext_flag": "",
+   "week_cum": 0.4095868904253841,
+   "px_start": 49.968,
+   "px_end": 50.153,
+   "lo": -0.03143574330062293,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": true,
+   "curve_day": "2026-11-06",
+   "curve_prev": "2026-11-05",
+   "chg_2y": 4.9,
+   "chg_10y": 1.46,
+   "chg_30y": -0.24,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Turkish inflation rises to 29.8% as lira touches 50 to the dollar",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOT1BvX1M2U0R3R251d05xb1p3WkZNd2hRaFRxVm9hM1l4MnhZeE10R2JjbTUtdjZLVzdkdUtkMFZFdGdxTlR3YnQ4ZHU0ZFQzeHE3NDN4N2luSUhPMGJQUXRyNkZGV2JMZWoyOGpiVU1rczlOTDRVOFFOaEk0bldheVl1MEhJS2FWeTRRMGRBSVJSbW1QRVl4TjZR?oc=5",
+     "region": "Turkey",
+     "date": "2026-11-06"
+    },
+    {
+     "title": "Euro to Turkish lira rate outlook: Consolidation expected as sellers retain control",
+     "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNajRYWXNTMUNDdThwYVVzMWlGWHB1U2pMVVg0TG5UQnpwSTNuekNFMlhRMHVZejNqandueEx2MmNzUXg5N3MzSi1oZVhxa1phX19lVXg1d0pCY2w0bTRzV0dsTk82MjNTa2E1Qm9GTEZfcjNBaHpWb05Wb1BydnlvVE51ZDhZcC1Ga3c?oc=5",
+     "region": "Turkey",
+     "date": "2026-11-06"
+    },
+    {
+     "title": "Turkey Arrests Ex-Erdogan Minister Ensnared in Fund Scandal",
+     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQZkxxNTJINlUtWlJ3bjBPeFMyOENvdUFvSldueHlfQXd0Ukd6MHprQlcyNkE2LUljUHFSeFJQVE1PNzdtdnFNT0N3WXVPMFlBSmo0RjhmcXhuamJ4WTFBQkFLQkRWM2I5aEdsTXZZRm1xNHJNb2NGclltRjBBZmdwcTFndDN3OVRkNWhDdWVPd2RJdFVzTG44NHVkZDJ3a3lGWmE2bWRsSEpPbzllS01oeQ?oc=5",
+     "region": "Turkey",
+     "date": "2026-11-06"
+    }
+   ],
+   "direction": "up",
+   "verdict": "No tail days. The largest move was Fri 6 Nov at +0.212%, the 88th percentile, against a 95th percentile of +0.237%.",
+   "generated": "2026-11-07 09:41",
+   "url": "reports/2026-11-06/index.html"
+  },
   {
    "slug": "2026-10-30",
    "week_start": "2026-10-26",
