@@ -1,7 +1,57 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-11-07 09:45",
+ "built": "2026-11-14 16:19",
  "reports": [
+  {
+   "slug": "2026-11-13",
+   "week_start": "2026-11-09",
+   "week_end": "2026-11-13",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 0,
+   "tail_dates": [],
+   "ext_date": "2026-11-09",
+   "ext_ret": -0.029912953528921093,
+   "ext_rank": 5.952380952380952,
+   "ext_flag": "",
+   "week_cum": 0.4277719637785893,
+   "px_start": 50.138,
+   "px_end": 50.368,
+   "lo": -0.03143574330062293,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": true,
+   "curve_day": "2026-11-09",
+   "curve_prev": "2026-11-06",
+   "chg_2y": 4.89,
+   "chg_10y": 1.96,
+   "chg_30y": -0.53,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "US CPI Preview: Will Inflation Fall Enough to Put a Fed Hike in Doubt?",
+     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOWHJqQ1FNOGxnMU5zbmgwVGV3bTNnRHdvaGtRaFpOSVlobDY3eDRzSVlxdWhTM3FYbUNKZ2psdnhXLXg0Q0dRWWVlTU1iRzlPSnhyQlZQejZXMnRVUTVVdTUwSjBia3hQODZvS0htQjM1bTJTcWxmRlAzS1h6MHh2U3BOYmo5MDBsZXVNZUxNNzdiWGxva2pnWU9scWZwUnNmQ2dwVG5VV0JPUUZ4Q083ck43QTdUQdIBwgFBVV95cUxNNVllREMwN096dU1BRlYxUlB5LUhiTTdkM0dzM29uSkVLQTVxd1UyZTBEell4eGU4NzA1MjFlZktIa1kwQnIwUm9qMF9ndzRyUzg5R3BURGJPVXpYZWZmU2pJLXN5ck4ySXlUZGowTlVxcDlEU0RsbG5nNjk0ZUJZdWZGdGNLVXB5ZW9qZm1Ec192Y3VLUVhhVkFidnFlcHI4N203LWNyM2V0YWY5RE1zU1UtaUhMbG5NcVdLM0hSVlM5dw?oc=5",
+     "region": "US",
+     "date": "2026-11-09"
+    },
+    {
+     "title": "US Treasury yields today: 10-year, 30-year bond yields hold steady as investors await US inflation data | Hindustan Times",
+     "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxPZkZaN2l3TGF0TVVNWURINkptcU1IdlZDWEJOeFFGNW5VckZZNWxEYTVMbkZ5YUdKQTc3RV9JVXVfQnctOWRLQ3lJSEFfU3ZWbmdYcWs3eDZzQzMtN3luaUJWclZjelkyRzZSVEpOT2NZVW04RzRwM2YwLUdYNEpacEJxaXV5NDhKN3pQeDVfekp6Mnl5T202SGpJdTdXU3Vrb2p4WllTZXZjRXdjTE5HY3BhVzA2U0NHd0hNcW44OWNaOXE2ejVsNl9IUkg0RDFiTGNDTGdETkR6X280TGVmQl9tMTFLWUloOTdNc045QU14Z1lRZXJqSDg3aEl5YnJjTXfSAYcCQVVfeXFMT0h0NTNCV1NRMkVMSXJ2Mlhhejh5cGEyMmxsMENTVVE4V0ZmWFk0eXZhNE9kNzltaGtaRmhyQks4VTdyS1U5aEc3eUYxUTR0RDRjVXpiNWtYdHcwOWJHMmtxSmVuanpKeEJseTV4VS01endoaUdaTzcwcjlvOEVtdURwLW5lSVdXcm9uRW1LWTk0MnJxeDlBUDMzcTdfeFFkbHJGWUZMUzBoNGVNSVp2WUVDZ1BCNTZqWXh0cU9xam5JUWRtZ2p3RUgwOElvV0dIVG96MllBUzFCMGRQQzBjSjRhV1Mzc080Z2pRYThONE5UbUpWZzRZT2x6QmNtUWVYaWdNbERqTk0?oc=5",
+     "region": "US",
+     "date": "2026-11-09"
+    },
+    {
+     "title": "Fed Rate Hike Odds Near 80% Raise the Stakes for U.S. CPI Data",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNMkZ6V0NGR3BFT2RCaDBmZk1zTElHNkxGYmxIbW94MnFvUlVPNmQxZ3ZwaE81QmozWjc0czlBclNoR1dOOUxBSEtDNjB2VUctU0t0WEh1bF9uemVzam0zek1JVi1PRHdnaDd3RnJvR1loMGhzei1MM0xlYzVYRDZZaVFVUHBCS0t6ZXk4YXpZUFZXSXdHTlViMzNjeEY1SGYy?oc=5",
+     "region": "US",
+     "date": "2026-11-09"
+    }
+   ],
+   "direction": "down",
+   "verdict": "No tail days. The largest move was Mon 9 Nov at −0.030%, the 6th percentile, against a 95th percentile of +0.237%.",
+   "generated": "2026-11-14 16:17",
+   "url": "reports/2026-11-13/index.html"
+  },
   {
    "slug": "2026-11-06",
    "week_start": "2026-11-02",
