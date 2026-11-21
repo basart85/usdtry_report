@@ -1,7 +1,57 @@
 {
  "title": "Currency & Yield Reports",
- "built": "2026-11-14 16:19",
+ "built": "2026-11-21 14:57",
  "reports": [
+  {
+   "slug": "2026-11-20",
+   "week_start": "2026-11-16",
+   "week_end": "2026-11-20",
+   "year": "2026",
+   "n_days": 5,
+   "n_tail": 0,
+   "tail_dates": [],
+   "ext_date": "2026-11-20",
+   "ext_ret": 0.20585913841566494,
+   "ext_rank": 86.11111111111111,
+   "ext_flag": "",
+   "week_cum": 0.4042010654713213,
+   "px_start": 50.392,
+   "px_end": 50.572,
+   "lo": -0.03143574330062293,
+   "hi": 0.23696155482831216,
+   "pct": 5,
+   "fallback": true,
+   "curve_day": "2026-11-20",
+   "curve_prev": "2026-11-19",
+   "chg_2y": -12.8,
+   "chg_10y": -11.3,
+   "chg_30y": -8.04,
+   "n_news": 20,
+   "headlines": [
+    {
+     "title": "Dollar weaker as Fed-fueled rally stalls; lower US yields help yen",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNSWwtcmZqemtkQmd4OWJQUHN1OXZLZTgxM1FtVk5JTlAtNndPYzRndHkxbEZ2MEdNZGtRdWUwMUxlblhtLThfQ0NoRHYtZ1lzd2VkSHc4N0U3UlFjUGFubjBkOFc4bDhpR3lELUoxalJBN1lkUUtUYk1NSk9sanNaeUZrZVVXTWlDV2Zja1FFQ3lPaXNUN2FXb3BST0dmZHd3?oc=5",
+     "region": "US",
+     "date": "2026-11-20"
+    },
+    {
+     "title": "Turkey's central bank cuts reserve requirement ratios",
+     "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNTkZBb3lzdDBuZ1ozeTIzZFZEXzdPYnZaRW9pcVJHbGV0V1JMMjBxbGxSNlZQcXdaSTBsSkIwS2RyVHEwQUtzMFdmZFBrVU15S3VSbGhnMFBlckdXMlhPaHJHYTQzVXdJZFByWW1FN3kyQUVyb1lDYkt1bWNUcnkteUpmZEVZQ3ZzaGJnQ2YxMTNPZjV3YUZ1dQ?oc=5",
+     "region": "Turkey",
+     "date": "2026-11-20"
+    },
+    {
+     "title": "Gold prices plunge over 7 % this week , set for worst fall since March as Fed rate hike fears , AI selloff bite",
+     "url": "https://www.moneycontrol.com/news/business/commodities/gold-prices-plunge-over-7-this-week-set-for-worst-fall-since-march-as-fed-rate-hike-fears-ai-selloff-bite-14085245.html",
+     "region": "US",
+     "date": "2026-11-20"
+    }
+   ],
+   "direction": "up",
+   "verdict": "No tail days. The largest move was Fri 20 Nov at +0.206%, the 86th percentile, against a 95th percentile of +0.237%.",
+   "generated": "2026-11-21 14:54",
+   "url": "reports/2026-11-20/index.html"
+  },
   {
    "slug": "2026-11-13",
    "week_start": "2026-11-09",
